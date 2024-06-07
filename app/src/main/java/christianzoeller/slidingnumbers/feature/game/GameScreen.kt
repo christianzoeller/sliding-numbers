@@ -17,9 +17,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import christianzoeller.slidingnumbers.ui.theme.SlidingNumbersTheme
+import christianzoeller.slidingnumbers.ui.tooling.CompactPreview
 
 @Composable
 fun GameScreen(
@@ -90,27 +91,27 @@ fun GameScreen(
     }
 }
 
-@Preview
+@CompactPreview
 @Composable
-fun GameScreen_NotStarted_Preview() {
+fun GameScreen_NotStarted_Preview() = SlidingNumbersTheme {
     GameScreen(
         state = GameState(status = GameStatus.NotStarted),
         onSwitchState = {}
     )
 }
 
-@Preview
+@CompactPreview
 @Composable
-fun GameScreen_Running_Preview() {
+fun GameScreen_Running_Preview() = SlidingNumbersTheme {
     GameScreen(
         state = GameState(status = GameStatus.Running),
         onSwitchState = {}
     )
 }
 
-@Preview
+@CompactPreview
 @Composable
-fun GameScreen_Finished_Preview() {
+fun GameScreen_Finished_Preview() = SlidingNumbersTheme {
     GameScreen(
         state = GameState(status = GameStatus.Finished),
         onSwitchState = {}
