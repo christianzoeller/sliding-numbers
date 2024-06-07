@@ -4,6 +4,7 @@ import org.junit.Assert
 import org.junit.Test
 
 class GameStateTest {
+    // region General
     @Test
     fun `swiping has no effect if game is not running`() {
         val notStarted = GameState(status = GameStatus.NotStarted, values = List(16) { 0 })
@@ -21,6 +22,59 @@ class GameStateTest {
         Assert.assertNull(notStarted.swipeDown())
         Assert.assertNull(finished.swipeDown())
     }
+
+    @Test
+    fun `adding a tile has no effect if the game is not running`() {
+        val notStarted = GameState(status = GameStatus.NotStarted, values = List(16) { 0 })
+        val finished = GameState(status = GameStatus.Finished, values = List(16) { 0 })
+
+        Assert.assertNull(notStarted.addTile())
+        Assert.assertNull(finished.addTile())
+    }
+
+    @Test
+    fun `adding a tile has no effect if the board is full`() {
+        val full = List(16) { 2 }
+        val fullState = makeGameState(full)
+
+        Assert.assertNull(fullState.addTile())
+    }
+
+    @Test
+    fun `adding a tile works if there is available space in a running game`() {
+        // This test is obviously far from perfect but good enough for what's
+        // at stake here.
+        val originalValues = listOf(
+            0, 4, 8, 2,
+            2, 2, 0, 0,
+            8, 0, 8, 4,
+            0, 0, 2, 4
+        )
+        val originalState = makeGameState(originalValues)
+        val originalSum = originalValues.sum()
+
+        for (i in 1..10) {
+            val result = originalState.addTile()
+
+            Assert.assertNotNull(result)
+            Assert.assertEquals(4, result!!.values[1])
+            Assert.assertEquals(8, result.values[2])
+            Assert.assertEquals(2, result.values[3])
+            Assert.assertEquals(2, result.values[4])
+            Assert.assertEquals(2, result.values[5])
+            Assert.assertEquals(8, result.values[8])
+            Assert.assertEquals(8, result.values[10])
+            Assert.assertEquals(4, result.values[11])
+            Assert.assertEquals(2, result.values[14])
+            Assert.assertEquals(4, result.values[15])
+
+            val newSum = result.values.sum()
+            val sumIsOk = newSum == originalSum + 2 || newSum == originalSum + 4
+
+            Assert.assertEquals(true, sumIsOk)
+        }
+    }
+    // endregion
 
     // region Swiping right
     @Test
