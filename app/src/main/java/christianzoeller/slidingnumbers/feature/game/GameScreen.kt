@@ -1,12 +1,7 @@
 package christianzoeller.slidingnumbers.feature.game
 
-import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
@@ -16,9 +11,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import christianzoeller.slidingnumbers.feature.game.ui.GameRunningView
 import christianzoeller.slidingnumbers.ui.theme.SlidingNumbersTheme
 import christianzoeller.slidingnumbers.ui.tooling.CompactPreview
 
@@ -44,7 +39,9 @@ fun GameScreen(
 ) {
     Scaffold { contentPadding ->
         Column(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .padding(contentPadding)
+                .fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(32.dp)
         ) {
@@ -58,21 +55,10 @@ fun GameScreen(
                 }
 
                 GameStatus.Running -> {
-                    Box(
-                        modifier = Modifier
-                            .padding(contentPadding)
-                            .fillMaxHeight(0.6f),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Canvas(
-                            modifier = Modifier
-                                .fillMaxWidth(0.75f)
-                                .aspectRatio(1f)
-                                .background(Color.LightGray)
-                        ) {
-
-                        }
-                    }
+                    GameRunningView(
+                        values = state.values,
+                        onValuesChange = {}
+                    )
                 }
 
                 GameStatus.Finished -> {
