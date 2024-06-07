@@ -13,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import christianzoeller.slidingnumbers.feature.game.model.SwipeDirection
 import christianzoeller.slidingnumbers.feature.game.ui.GameRunningView
 import christianzoeller.slidingnumbers.ui.theme.SlidingNumbersTheme
 import christianzoeller.slidingnumbers.ui.tooling.CompactPreview
@@ -28,6 +29,7 @@ fun GameScreen(
 
     GameScreen(
         state = state.value,
+        onSwipe = viewModel::onSwipe,
         onSwitchState = viewModel::switchGameState
     )
 }
@@ -35,6 +37,7 @@ fun GameScreen(
 @Composable
 fun GameScreen(
     state: GameState,
+    onSwipe: (SwipeDirection) -> Unit,
     onSwitchState: () -> Unit
 ) {
     Scaffold { contentPadding ->
@@ -57,7 +60,7 @@ fun GameScreen(
                 GameStatus.Running -> {
                     GameRunningView(
                         values = state.values,
-                        onValuesChange = {}
+                        onSwipe = onSwipe
                     )
                 }
 
@@ -82,6 +85,7 @@ fun GameScreen(
 fun GameScreen_NotStarted_Preview() = SlidingNumbersTheme {
     GameScreen(
         state = GameState(status = GameStatus.NotStarted),
+        onSwipe = {},
         onSwitchState = {}
     )
 }
@@ -91,6 +95,7 @@ fun GameScreen_NotStarted_Preview() = SlidingNumbersTheme {
 fun GameScreen_Running_Preview() = SlidingNumbersTheme {
     GameScreen(
         state = GameState(status = GameStatus.Running),
+        onSwipe = {},
         onSwitchState = {}
     )
 }
@@ -100,6 +105,7 @@ fun GameScreen_Running_Preview() = SlidingNumbersTheme {
 fun GameScreen_Finished_Preview() = SlidingNumbersTheme {
     GameScreen(
         state = GameState(status = GameStatus.Finished),
+        onSwipe = {},
         onSwitchState = {}
     )
 }

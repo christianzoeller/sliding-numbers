@@ -24,7 +24,6 @@ import christianzoeller.slidingnumbers.ui.tooling.CompactPreview
 @Composable
 fun GameBoard(
     values: List<Int>,
-    onValuesChange: (List<Int>) -> Unit,
     modifier: Modifier = Modifier
 ) {
     assert(values.size == 16)
@@ -115,14 +114,13 @@ private data class BoardDimensions(
 @CompactPreview
 @Composable
 private fun GameRunningView_Preview() = SlidingNumbersTheme {
-    GameRunningView(
+    GameBoard(
         values = listOf(
             2, 0, 0, 0,
             2, 4, 2, 8,
             32, 16, 8, 4,
             128, 64, 32, 16
         ),
-        onValuesChange = {},
         modifier = Modifier.padding(32.dp)
     )
 }
