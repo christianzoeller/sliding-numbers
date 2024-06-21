@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.hilt.android)
+    alias(libs.plugins.ksp)
     id("kotlin-kapt")
 }
 
@@ -65,6 +66,8 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     implementation(libs.hilt.android)
     implementation(libs.hilt.navigation.compose)
+    implementation(libs.kotlinx.datetime)
+    implementation(libs.room.runtime)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -73,6 +76,7 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
     kapt(libs.hilt.android.compiler)
+    ksp(libs.room.compiler)
 }
 
 kapt {
