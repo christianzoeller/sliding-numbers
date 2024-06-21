@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.drawText
 import androidx.compose.ui.text.rememberTextMeasurer
@@ -57,12 +58,19 @@ fun GameBoard(
             }
         }
 
-        val tileColor = MaterialTheme.colorScheme.primaryContainer
-        val tileContentColor = MaterialTheme.colorScheme.onPrimaryContainer
+        val tileFallbackColor = MaterialTheme.colorScheme.primaryContainer
+        val tileTextColorForLowValues = MaterialTheme.colorScheme.onBackground
+        val tileTextColorForLargeValues = MaterialTheme.colorScheme.background
         val tileTextStyle = MaterialTheme.typography.bodyLarge
 
         Canvas(modifier = canvasBaseModifier.aspectRatio(1f)) {
             for (i in 0..values.lastIndex) {
+                val value = values[i]
+                val tileColor = valueColorMap[value] ?: tileFallbackColor
+                val tileTextColor =
+                    if (value > 256) tileTextColorForLargeValues
+                    else tileTextColorForLowValues
+
                 val m = i / 4
                 val n = i % 4
 
@@ -79,7 +87,7 @@ fun GameBoard(
                     )
                 )
 
-                val value = values[i]
+
                 val textLayoutResult = textMeasurer.measure(
                     text = value.toString(),
                     style = tileTextStyle
@@ -96,7 +104,7 @@ fun GameBoard(
 
                 drawText(
                     textLayoutResult = textLayoutResult,
-                    color = tileContentColor,
+                    color = tileTextColor,
                     topLeft = textTopLeft
                 )
             }
@@ -111,6 +119,24 @@ private data class BoardDimensions(
     val tileCornerRadius: Float
 )
 
+private val valueColorMap = mapOf(
+    0 to Color(0xFFEEEEEE),
+    2 to Color(0xFFFFE4C3),
+    4 to Color(0xFFFFF4D3),
+    8 to Color(0xFFFFDAC3),
+
+    16 to Color(0xFFE7B08E),
+    32 to Color(0xFFE7BF8E),
+    64 to Color(0xFFFFC4C3),
+
+    128 to Color(0xFFE7948E),
+    256 to Color(0xFFBE7E56),
+    512 to Color(0xFFBE5E56),
+
+    1024 to Color(0xFF9C3931),
+    2048 to Color(0xFF701710)
+)
+
 @CompactPreview
 @Composable
 private fun GameRunningView_Preview() = SlidingNumbersTheme {
@@ -119,7 +145,7 @@ private fun GameRunningView_Preview() = SlidingNumbersTheme {
             2, 0, 0, 0,
             2, 4, 2, 8,
             32, 16, 8, 4,
-            128, 64, 32, 16
+            512, 64, 32, 16
         ),
         modifier = Modifier.padding(32.dp)
     )
