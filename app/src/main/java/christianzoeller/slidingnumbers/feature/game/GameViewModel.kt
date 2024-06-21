@@ -1,5 +1,6 @@
 package christianzoeller.slidingnumbers.feature.game
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import christianzoeller.slidingnumbers.feature.game.model.SwipeDirection
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -33,9 +34,17 @@ class GameViewModel @Inject constructor() : ViewModel() {
             SwipeDirection.Down -> current.swipeDown()
         }
 
+        if (swiped == current) {
+            Log.v("SN", "Swipe without effect detected")
+            return
+        }
+
         val updatedStatus = swiped?.updateStatus()
         val finalState = if (updatedStatus?.status != GameStatus.Finished) {
-            updatedStatus?.addTile()
+            // Add another tile and check the status again as the player now might
+            // have lost
+            val addedTile = updatedStatus?.addTile()
+            addedTile?.updateStatus()
         } else updatedStatus
 
         _state.value = finalState ?: current
