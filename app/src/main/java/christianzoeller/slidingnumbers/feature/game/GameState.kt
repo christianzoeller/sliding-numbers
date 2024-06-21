@@ -120,7 +120,7 @@ private fun GameState.move(
         .map { it.toMutableList() }
         .toMutableList()
 
-    var newScore: Int? = null
+    var newScore = score
     for (i in 0 until numberOfTiles) {
         val j = abs(countDownFrom - i)
 
@@ -144,7 +144,7 @@ private fun GameState.move(
                 else {
                     next.mergeWith(current)?.let {
                         board[nextRow][nextColumn] = it
-                        newScore = score + it.value
+                        newScore += it.value
                         board[row][column] = null
                     }
 
@@ -160,7 +160,7 @@ private fun GameState.move(
 
     return copy(
         values = updatedValues,
-        score = newScore ?: score
+        score = newScore
     )
 }
 

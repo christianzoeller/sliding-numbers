@@ -91,6 +91,8 @@ class GameStateTest {
 
         Assert.assertNotNull(result)
         Assert.assertEquals(originalValues, result!!.values)
+        Assert.assertEquals(8, result.highest)
+        Assert.assertEquals(0, result.score)
     }
 
     @Test
@@ -114,6 +116,8 @@ class GameStateTest {
 
         Assert.assertNotNull(result)
         Assert.assertEquals(expected, result!!.values)
+        Assert.assertEquals(8, result.highest)
+        Assert.assertEquals(0, result.score)
     }
 
     @Test
@@ -137,6 +141,8 @@ class GameStateTest {
 
         Assert.assertNotNull(originalState)
         Assert.assertEquals(expected, result!!.values)
+        Assert.assertEquals(8, result.highest)
+        Assert.assertEquals(4, result.score)
     }
 
     @Test
@@ -160,6 +166,8 @@ class GameStateTest {
 
         Assert.assertNotNull(originalState)
         Assert.assertEquals(expected, result!!.values)
+        Assert.assertEquals(8, result.highest)
+        Assert.assertEquals(4 + 0 + 4 + 8, result.score)
     }
 
     @Test
@@ -183,6 +191,8 @@ class GameStateTest {
 
         Assert.assertNotNull(originalState)
         Assert.assertEquals(expected, result!!.values)
+        Assert.assertEquals(4, result.highest)
+        Assert.assertEquals(4 + 4, result.score)
     }
 
     @Test
@@ -206,6 +216,8 @@ class GameStateTest {
 
         Assert.assertNotNull(originalState)
         Assert.assertEquals(expected, result!!.values)
+        Assert.assertEquals(4, result.highest)
+        Assert.assertEquals(4, result.score)
     }
     // endregion
 
@@ -224,6 +236,8 @@ class GameStateTest {
 
         Assert.assertNotNull(result)
         Assert.assertEquals(originalValues, result!!.values)
+        Assert.assertEquals(8, result.highest)
+        Assert.assertEquals(0, result.score)
     }
 
     @Test
@@ -247,6 +261,8 @@ class GameStateTest {
 
         Assert.assertNotNull(result)
         Assert.assertEquals(expected, result!!.values)
+        Assert.assertEquals(8, result.highest)
+        Assert.assertEquals(0, result.score)
     }
 
     @Test
@@ -270,6 +286,8 @@ class GameStateTest {
 
         Assert.assertNotNull(originalState)
         Assert.assertEquals(expected, result!!.values)
+        Assert.assertEquals(8, result.highest)
+        Assert.assertEquals(4, result.score)
     }
 
     @Test
@@ -293,6 +311,8 @@ class GameStateTest {
 
         Assert.assertNotNull(originalState)
         Assert.assertEquals(expected, result!!.values)
+        Assert.assertEquals(8, result.highest)
+        Assert.assertEquals(4 + 0 + 4 + 8, result.score)
     }
 
     @Test
@@ -316,6 +336,8 @@ class GameStateTest {
 
         Assert.assertNotNull(originalState)
         Assert.assertEquals(expected, result!!.values)
+        Assert.assertEquals(4, result.highest)
+        Assert.assertEquals(4 + 4, result.score)
     }
 
     @Test
@@ -339,6 +361,8 @@ class GameStateTest {
 
         Assert.assertNotNull(originalState)
         Assert.assertEquals(expected, result!!.values)
+        Assert.assertEquals(4, result.highest)
+        Assert.assertEquals(4, result.score)
     }
     // endregion
 
@@ -358,6 +382,8 @@ class GameStateTest {
 
         Assert.assertNotNull(result)
         Assert.assertEquals(originalValues, result!!.values)
+        Assert.assertEquals(8, result.highest)
+        Assert.assertEquals(0, result.score)
     }
 
     @Test
@@ -382,6 +408,8 @@ class GameStateTest {
 
         Assert.assertNotNull(result)
         Assert.assertEquals(expected, result!!.values)
+        Assert.assertEquals(8, result.highest)
+        Assert.assertEquals(0, result.score)
     }
 
     @Test
@@ -406,6 +434,8 @@ class GameStateTest {
 
         Assert.assertNotNull(originalState)
         Assert.assertEquals(expected, result!!.values)
+        Assert.assertEquals(8, result.highest)
+        Assert.assertEquals(4, result.score)
     }
 
     @Test
@@ -429,6 +459,8 @@ class GameStateTest {
 
         Assert.assertNotNull(originalState)
         Assert.assertEquals(expected, result!!.values)
+        Assert.assertEquals(8, result.highest)
+        Assert.assertEquals(4 + 0 + 4 + 8, result.score)
     }
 
     @Test
@@ -452,6 +484,8 @@ class GameStateTest {
 
         Assert.assertNotNull(originalState)
         Assert.assertEquals(expected, result!!.values)
+        Assert.assertEquals(4, result.highest)
+        Assert.assertEquals(4 + 4, result.score)
     }
 
     @Test
@@ -475,6 +509,8 @@ class GameStateTest {
 
         Assert.assertNotNull(originalState)
         Assert.assertEquals(expected, result!!.values)
+        Assert.assertEquals(4, result.highest)
+        Assert.assertEquals(4, result.score)
     }
     // endregion
 
@@ -494,6 +530,8 @@ class GameStateTest {
 
         Assert.assertNotNull(result)
         Assert.assertEquals(originalValues, result!!.values)
+        Assert.assertEquals(8, result.highest)
+        Assert.assertEquals(0, result.score)
     }
 
     @Test
@@ -518,6 +556,8 @@ class GameStateTest {
 
         Assert.assertNotNull(result)
         Assert.assertEquals(expected, result!!.values)
+        Assert.assertEquals(8, result.highest)
+        Assert.assertEquals(0, result.score)
     }
 
     @Test
@@ -542,6 +582,8 @@ class GameStateTest {
 
         Assert.assertNotNull(originalState)
         Assert.assertEquals(expected, result!!.values)
+        Assert.assertEquals(8, result.highest)
+        Assert.assertEquals(4, result.score)
     }
 
     @Test
@@ -565,6 +607,8 @@ class GameStateTest {
 
         Assert.assertNotNull(originalState)
         Assert.assertEquals(expected, result!!.values)
+        Assert.assertEquals(8, result.highest)
+        Assert.assertEquals(4 + 0 + 4 + 8, result.score)
     }
 
     @Test
@@ -588,6 +632,8 @@ class GameStateTest {
 
         Assert.assertNotNull(originalState)
         Assert.assertEquals(expected, result!!.values)
+        Assert.assertEquals(4, result.highest)
+        Assert.assertEquals(4 + 4, result.score)
     }
 
     @Test
@@ -611,6 +657,8 @@ class GameStateTest {
 
         Assert.assertNotNull(originalState)
         Assert.assertEquals(expected, result!!.values)
+        Assert.assertEquals(4, result.highest)
+        Assert.assertEquals(4, result.score)
     }
     // endregion
 }
