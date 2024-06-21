@@ -661,6 +661,72 @@ class GameStateTest {
         Assert.assertEquals(4, result.score)
     }
     // endregion
+
+    // region Update status
+    @Test
+    fun `update game status works correctly if there are moves left`() {
+        val originalValues = listOf(
+            0, 0, 0, 2,
+            0, 2, 4, 8,
+            0, 0, 0, 0,
+            8, 4, 2, 4
+        )
+        val originalState = makeGameState(originalValues)
+
+        val result = originalState.updateStatus()
+
+        Assert.assertEquals(GameStatus.Running, result.status)
+    }
+
+    @Test
+    fun `update game status works correctly if there are no more moves left`() {
+        val originalValues = listOf(
+            8, 4, 8, 4,
+            4, 2, 4, 2,
+            2, 8, 2, 8,
+            8, 4, 8, 4
+        )
+        val originalState = makeGameState(originalValues)
+
+        val result = originalState.updateStatus()
+
+        Assert.assertEquals(GameStatus.Finished, result.status)
+        Assert.assertFalse(result.won)
+    }
+
+    @Test
+    fun `update game status works correctly if the player won`() {
+        val originalValues = listOf(
+            0, 0, 0, 2,
+            0, 2, 4, 8,
+            0, 0, 0, 0,
+            8, 4, 2, 2048
+        )
+        val originalState = makeGameState(originalValues)
+
+        val result = originalState.updateStatus()
+
+        Assert.assertEquals(GameStatus.Finished, result.status)
+        Assert.assertTrue(result.won)
+    }
+
+    @Test
+    fun `update game status works correctly if the player won with no moves left`() {
+        val originalValues = listOf(
+            8, 4, 8, 4,
+            4, 2048, 4, 2,
+            2, 8, 2, 8,
+            8, 4, 8, 4
+        )
+        val originalState = makeGameState(originalValues)
+
+        val result = originalState.updateStatus()
+
+        Assert.assertEquals(GameStatus.Finished, result.status)
+        Assert.assertTrue(result.won)
+    }
+
+    // endregion
 }
 
 private fun makeGameState(values: List<Int>) = GameState(

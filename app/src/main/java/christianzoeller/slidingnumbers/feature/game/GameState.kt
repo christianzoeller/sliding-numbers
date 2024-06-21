@@ -102,6 +102,39 @@ fun GameState.addTile(): GameState? {
 }
 
 /**
+ * Updates the [GameStatus] of this [GameState] with regard to the current
+ * values on the board.
+ *
+ * If the game is not in [GameStatus.Running], the same [GameState] will be
+ * returned.
+ */
+fun GameState.updateStatus() =
+    when (status) {
+        GameStatus.NotStarted, GameStatus.Finished -> this
+        GameStatus.Running -> {
+            if (won || movesLeft() == false) {
+                copy(status = GameStatus.Finished)
+            } else {
+                this
+            }
+        }
+    }
+
+/**
+ * Checks whether there are still moves left that the player can do.
+ *
+ * Returns null if the game is not in [GameStatus.Running].
+ */
+private fun GameState.movesLeft(): Boolean? {
+    if (status != GameStatus.Running) return null
+
+    return swipeRightPossible() ||
+            swipeLeftPossible() ||
+            swipeUpPossible() ||
+            swipeDownPossible()
+}
+
+/**
  * Performs the given move and updates the game state accordingly.
  *
  * If this move is not possible, i.e. it has no effect, the same [GameState]
@@ -131,7 +164,7 @@ private fun GameState.move(
             var nextRow = row + yDelta
             var nextColumn = column + xDelta
 
-            while (nextRow in 0..<boardLength && nextColumn in 0..<boardLength) {
+            while (nextRow in 0 until boardLength && nextColumn in 0 until boardLength) {
                 val next = board[nextRow][nextColumn]
                 if (next == null) {
                     board[nextRow][nextColumn] = current
@@ -165,6 +198,69 @@ private fun GameState.move(
 }
 
 /**
+ * Checks whether the player can swipe right.
+ */
+private fun GameState.swipeRightPossible(): Boolean =
+    movePossible(numberOfTiles - 1, 0, 1)
+
+/**
+ * Checks whether the player can swipe left.
+ */
+private fun GameState.swipeLeftPossible(): Boolean =
+    movePossible(0, 0, -1)
+
+/**
+ * Checks whether the player can swipe up.
+ */
+private fun GameState.swipeUpPossible(): Boolean =
+    movePossible(0, -1, 0)
+
+/**
+ * Checks whether the player can swipe down.
+ */
+private fun GameState.swipeDownPossible(): Boolean =
+    movePossible(numberOfTiles - 1, 1, 0)
+
+/**
+ * Checks whether the given move is possible without actually performing it.
+ */
+private fun GameState.movePossible(
+    countDownFrom: Int,
+    yDelta: Int,
+    xDelta: Int
+): Boolean {
+    if (status != GameStatus.Running) return false
+
+    val board = values
+        .map { if (it == 0) null else TileValue(it) }
+        .chunked(boardLength)
+
+    for (i in 0 until numberOfTiles) {
+        val j = abs(countDownFrom - i)
+
+        val row = j / boardLength
+        val column = j % boardLength
+
+        val current = board[row][column]
+        if (current == null) {
+            return true
+        } else {
+            val nextRow = row + yDelta
+            val nextColumn = column + xDelta
+            if (nextRow in 0 until boardLength && nextColumn in 0 until boardLength) {
+                val next = board[nextRow][nextColumn]
+                if (next == null || next.canBeMergedWith(current)) {
+                    return true
+                }
+            }
+        }
+    }
+
+    return false
+}
+
+
+/**
  * A convenience class that holds the current value of a tile as well as further
  * information on it in the context of an ongoing move.
  */
@@ -188,7 +284,7 @@ private data class TileValue(
     /**
      * Checks whether this [TileValue] can be merged with some [other] value.
      */
-    private fun canBeMergedWith(other: TileValue?) = other?.let {
+    fun canBeMergedWith(other: TileValue?) = other?.let {
         !merged && !other.merged && value == other.value
     } ?: false
 }
