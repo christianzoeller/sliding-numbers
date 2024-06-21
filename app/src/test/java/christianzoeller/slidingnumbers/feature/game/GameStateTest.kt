@@ -104,7 +104,7 @@ class GameStateTest {
         val originalState = makeGameState(originalValues)
 
         val expected = listOf(
-            0, 0, 2, 0,
+            0, 0, 0, 2,
             0, 2, 4, 8,
             0, 0, 0, 2,
             8, 4, 2, 4
