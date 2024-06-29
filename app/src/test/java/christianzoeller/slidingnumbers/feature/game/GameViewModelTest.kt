@@ -1,13 +1,16 @@
 package christianzoeller.slidingnumbers.feature.game
 
+import christianzoeller.slidingnumbers.datasource.GameResultDao
 import christianzoeller.slidingnumbers.feature.game.model.SwipeDirection
+import christianzoeller.slidingnumbers.model.GameResult
+import christianzoeller.slidingnumbers.repository.GameResultRepository
 import org.junit.Assert
 import org.junit.Test
 
 class GameViewModelTest {
     @Test
     fun `initialized view model has correct state`() {
-        val viewModel = GameViewModel()
+        val viewModel = GameViewModel(GameResultRepository(FakeGameResultDao))
 
         val state = viewModel.state.value
         Assert.assertEquals(GameStatus.NotStarted, state.status)
@@ -23,7 +26,7 @@ class GameViewModelTest {
 
     @Test
     fun `starting the game works as expected`() {
-        val viewModel = GameViewModel()
+        val viewModel = GameViewModel(GameResultRepository(FakeGameResultDao))
 
         viewModel.onStart()
 
@@ -39,7 +42,7 @@ class GameViewModelTest {
 
     @Test
     fun `swiping has no effect if the game has not been started`() {
-        val viewModel = GameViewModel()
+        val viewModel = GameViewModel(GameResultRepository(FakeGameResultDao))
 
         SwipeDirection.entries.forEach { direction ->
             viewModel.onSwipe(direction)
@@ -59,7 +62,7 @@ class GameViewModelTest {
 
     @Test
     fun `restart has no effect if the game has not been started`() {
-        val viewModel = GameViewModel()
+        val viewModel = GameViewModel(GameResultRepository(FakeGameResultDao))
 
         viewModel.onRestart()
 
@@ -75,3 +78,12 @@ class GameViewModelTest {
         }
     }
 }
+
+// region Mocks
+private object FakeGameResultDao : GameResultDao {
+    override suspend fun insert(result: GameResult) {}
+
+    override suspend fun getAll(): List<GameResult> = emptyList()
+
+}
+// endregion

@@ -2,15 +2,23 @@ package christianzoeller.slidingnumbers.feature.game
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import christianzoeller.slidingnumbers.feature.game.model.SwipeDirection
+import christianzoeller.slidingnumbers.model.GameResult
+import christianzoeller.slidingnumbers.repository.GameResultRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
+import kotlinx.datetime.Clock
 import javax.inject.Inject
 
 @HiltViewModel
-class GameViewModel @Inject constructor() : ViewModel() {
+class GameViewModel @Inject constructor(
+    private val gameResultRepository: GameResultRepository
+) : ViewModel() {
     private val _state = MutableStateFlow(GameState())
     val state = _state.asStateFlow()
 
@@ -46,6 +54,19 @@ class GameViewModel @Inject constructor() : ViewModel() {
             val addedTile = updatedStatus?.addTile()
             addedTile?.updateStatus()
         } else updatedStatus
+
+        if (finalState?.status == GameStatus.Finished) {
+            val result = GameResult(
+                score = finalState.score,
+                highest = finalState.highest,
+                timestamp = Clock.System.now(),
+                finalValues = finalState.values
+            )
+
+            viewModelScope.launch(Dispatchers.IO) {
+                gameResultRepository.addGameResult(result)
+            }
+        }
 
         _state.value = finalState ?: current
     }
