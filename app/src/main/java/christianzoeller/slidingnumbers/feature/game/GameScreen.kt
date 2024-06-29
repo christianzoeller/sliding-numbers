@@ -31,7 +31,7 @@ fun GameScreen(
 }
 
 @Composable
-fun GameScreen(
+private fun GameScreen(
     state: GameState,
     onStart: () -> Unit,
     onSwipe: (SwipeDirection) -> Unit,
