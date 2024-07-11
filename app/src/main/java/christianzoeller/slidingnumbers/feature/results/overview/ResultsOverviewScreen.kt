@@ -11,17 +11,21 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import christianzoeller.slidingnumbers.R
 import christianzoeller.slidingnumbers.feature.results.overview.ui.ResultsEmptyView
 import christianzoeller.slidingnumbers.feature.results.overview.ui.ResultsLoadingView
 import christianzoeller.slidingnumbers.feature.results.overview.ui.ResultsView
 import christianzoeller.slidingnumbers.model.GameResult
+import christianzoeller.slidingnumbers.ui.components.BottomNavigationBar
 import christianzoeller.slidingnumbers.ui.theme.SlidingNumbersTheme
 import christianzoeller.slidingnumbers.ui.tooling.CompactPreview
 import kotlinx.datetime.Clock
 
 @Composable
 fun ResultsOverviewScreen(
+    navController: NavHostController,
     viewModel: ResultsOverviewViewModel
 ) {
     val state = viewModel.state.collectAsStateWithLifecycle(
@@ -30,6 +34,7 @@ fun ResultsOverviewScreen(
     )
 
     ResultsOverviewScreen(
+        navController = navController,
         state = state.value,
         onResultClick = {}, // TODO navigate to details screen
         onStartGameClick = {} // TODO navigate to game screen
@@ -39,6 +44,7 @@ fun ResultsOverviewScreen(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun ResultsOverviewScreen(
+    navController: NavHostController,
     state: ResultsOverviewState,
     onResultClick: (Long) -> Unit,
     onStartGameClick: () -> Unit
@@ -50,6 +56,9 @@ private fun ResultsOverviewScreen(
                     Text(text = stringResource(id = R.string.results_overview_header))
                 }
             )
+        },
+        bottomBar = {
+            BottomNavigationBar(navController = navController)
         }
     ) { contentPadding ->
         val contentModifier = Modifier
@@ -78,6 +87,7 @@ private fun ResultsOverviewScreen(
 @Composable
 private fun ResultsOverviewScreen_Loading_Preview() = SlidingNumbersTheme {
     ResultsOverviewScreen(
+        navController = rememberNavController(),
         state = ResultsOverviewState.Loading,
         onResultClick = {},
         onStartGameClick = {}
@@ -88,6 +98,7 @@ private fun ResultsOverviewScreen_Loading_Preview() = SlidingNumbersTheme {
 @Composable
 private fun ResultsOverviewScreen_Content_Preview() = SlidingNumbersTheme {
     ResultsOverviewScreen(
+        navController = rememberNavController(),
         state = ResultsOverviewState.Data(
             results = listOf(
                 GameResult(
@@ -113,6 +124,7 @@ private fun ResultsOverviewScreen_Content_Preview() = SlidingNumbersTheme {
 @Composable
 private fun ResultsOverviewScreen_Empty_Preview() = SlidingNumbersTheme {
     ResultsOverviewScreen(
+        navController = rememberNavController(),
         state = ResultsOverviewState.Empty,
         onResultClick = {},
         onStartGameClick = {}

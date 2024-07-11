@@ -6,15 +6,19 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import christianzoeller.slidingnumbers.feature.game.model.SwipeDirection
 import christianzoeller.slidingnumbers.feature.game.ui.GameFinishedView
 import christianzoeller.slidingnumbers.feature.game.ui.GameNotStartedView
 import christianzoeller.slidingnumbers.feature.game.ui.GameRunningView
+import christianzoeller.slidingnumbers.ui.components.BottomNavigationBar
 import christianzoeller.slidingnumbers.ui.theme.SlidingNumbersTheme
 import christianzoeller.slidingnumbers.ui.tooling.CompactPreview
 
 @Composable
 fun GameScreen(
+    navController: NavHostController,
     viewModel: GameViewModel
 ) {
     val state = viewModel.state.collectAsStateWithLifecycle(
@@ -23,6 +27,7 @@ fun GameScreen(
     )
 
     GameScreen(
+        navController = navController,
         state = state.value,
         onStart = viewModel::onStart,
         onSwipe = viewModel::onSwipe,
@@ -32,12 +37,17 @@ fun GameScreen(
 
 @Composable
 private fun GameScreen(
+    navController: NavHostController,
     state: GameState,
     onStart: () -> Unit,
     onSwipe: (SwipeDirection) -> Unit,
     onRestart: () -> Unit
 ) {
-    Scaffold { contentPadding ->
+    Scaffold(
+        bottomBar = {
+            BottomNavigationBar(navController = navController)
+        }
+    ) { contentPadding ->
         val contentModifier = Modifier
             .padding(contentPadding)
             .fillMaxWidth()
@@ -76,6 +86,7 @@ private fun GameScreen(
 @Composable
 fun GameScreen_NotStarted_Preview() = SlidingNumbersTheme {
     GameScreen(
+        navController = rememberNavController(),
         state = GameState(status = GameStatus.NotStarted),
         onStart = {},
         onSwipe = {},
@@ -87,6 +98,7 @@ fun GameScreen_NotStarted_Preview() = SlidingNumbersTheme {
 @Composable
 fun GameScreen_Running_Preview() = SlidingNumbersTheme {
     GameScreen(
+        navController = rememberNavController(),
         state = GameState(status = GameStatus.Running),
         onStart = {},
         onSwipe = {},
@@ -98,6 +110,7 @@ fun GameScreen_Running_Preview() = SlidingNumbersTheme {
 @Composable
 fun GameScreen_Finished_Preview() = SlidingNumbersTheme {
     GameScreen(
+        navController = rememberNavController(),
         state = GameState(status = GameStatus.Finished),
         onStart = {},
         onSwipe = {},

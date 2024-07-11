@@ -7,14 +7,24 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import christianzoeller.slidingnumbers.feature.game.GameScreen
 import christianzoeller.slidingnumbers.feature.game.GameViewModel
+import christianzoeller.slidingnumbers.feature.results.overview.ResultsOverviewScreen
+import christianzoeller.slidingnumbers.feature.results.overview.ResultsOverviewViewModel
 
 @Composable
 fun NavigationGraph() {
     val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = "game") {
-        composable("game") {
+    NavHost(
+        navController = navController,
+        startDestination = Screen.Game.route
+    ) {
+        composable(Screen.Game.route) {
             val viewModel = hiltViewModel<GameViewModel>()
-            GameScreen(viewModel)
+            GameScreen(navController, viewModel)
+        }
+
+        composable(Screen.Results.route) {
+            val viewModel = hiltViewModel<ResultsOverviewViewModel>()
+            ResultsOverviewScreen(navController, viewModel)
         }
     }
 }

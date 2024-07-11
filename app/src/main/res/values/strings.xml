@@ -3,4 +3,8 @@
 	<string name="results_overview_empty_disclaimer">No scores yet.\nStart your first game now!</string>
 	<string name="results_overview_empty_play_now">Play now!</string>
 	<string name="results_overview_header">Your scores</string>
+	<string name="game_tab_label">Play</string>
+	<string name="results_tab_label">High score</string>
+	<string name="game_tab_icon_description">Go play a game</string>
+	<string name="results_tab_icon_description">Go to your high scores</string>
 </resources>
