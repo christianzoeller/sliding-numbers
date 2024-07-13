@@ -10,4 +10,6 @@
 	<string name="results_overview_number_of_points">%1$d points</string>
 	<string name="results_overview_won_abbreviation">W</string>
 	<string name="results_overview_lost_abbreviation">L</string>
+	<string name="result_detail_error_disclaimer">An error occurred.</string>
+	<string name="result_detail_header">Game result</string>
 </resources>
