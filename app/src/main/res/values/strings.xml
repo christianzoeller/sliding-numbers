@@ -7,4 +7,7 @@
 	<string name="results_tab_label">High score</string>
 	<string name="game_tab_icon_description">Go play a game</string>
 	<string name="results_tab_icon_description">Go to your high scores</string>
+	<string name="results_overview_number_of_points">%1$d points</string>
+	<string name="results_overview_won_abbreviation">W</string>
+	<string name="results_overview_lost_abbreviation">L</string>
 </resources>

@@ -70,7 +70,10 @@ private fun ResultsOverviewScreen(
             is ResultsOverviewState.Data -> ResultsView(
                 data = state,
                 onResultClick = onResultClick,
-                modifier = contentModifier
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(vertical = 16.dp),
+                contentPadding = contentPadding
             )
 
             ResultsOverviewState.Empty -> ResultsEmptyView(
