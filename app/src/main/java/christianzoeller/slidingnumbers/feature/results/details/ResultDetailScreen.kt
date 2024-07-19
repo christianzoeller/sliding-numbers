@@ -1,7 +1,9 @@
-package christianzoeller.slidingnumbers.feature.results.overview
+package christianzoeller.slidingnumbers.feature.results.details
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -15,9 +17,9 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import christianzoeller.slidingnumbers.R
 import christianzoeller.slidingnumbers.Screen
-import christianzoeller.slidingnumbers.feature.results.overview.ui.ResultsEmptyView
-import christianzoeller.slidingnumbers.feature.results.overview.ui.ResultsLoadingView
-import christianzoeller.slidingnumbers.feature.results.overview.ui.ResultsView
+import christianzoeller.slidingnumbers.feature.results.details.ui.ResultDetailErrorView
+import christianzoeller.slidingnumbers.feature.results.details.ui.ResultDetailLoadingView
+import christianzoeller.slidingnumbers.feature.results.details.ui.ResultDetailView
 import christianzoeller.slidingnumbers.model.GameResult
 import christianzoeller.slidingnumbers.ui.components.BottomNavigationBar
 import christianzoeller.slidingnumbers.ui.theme.SlidingNumbersTheme
@@ -25,36 +27,34 @@ import christianzoeller.slidingnumbers.ui.tooling.CompactPreview
 import kotlinx.datetime.Clock
 
 @Composable
-fun ResultsOverviewScreen(
+fun ResultDetailScreen(
     navController: NavHostController,
-    viewModel: ResultsOverviewViewModel
+    viewModel: ResultDetailViewModel
 ) {
     val state = viewModel.state.collectAsStateWithLifecycle(
         // TODO workaround for https://issuetracker.google.com/issues/336842920#comment14
         lifecycleOwner = androidx.compose.ui.platform.LocalLifecycleOwner.current
     )
 
-    ResultsOverviewScreen(
+    ResultDetailScreen(
         navController = navController,
         state = state.value,
-        onResultClick = { Screen.ResultDetail.navigate(navController, it) },
         onStartGameClick = { Screen.Game.navigate(navController) }
     )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun ResultsOverviewScreen(
+private fun ResultDetailScreen(
     navController: NavHostController,
-    state: ResultsOverviewState,
-    onResultClick: (Long) -> Unit,
+    state: ResultDetailState,
     onStartGameClick: () -> Unit
 ) {
     Scaffold(
         topBar = {
             TopAppBar(
                 title = {
-                    Text(text = stringResource(id = R.string.results_overview_header))
+                    Text(text = stringResource(id = R.string.result_detail_header))
                 }
             )
         },
@@ -63,74 +63,58 @@ private fun ResultsOverviewScreen(
         }
     ) { contentPadding ->
         val contentModifier = Modifier
+            .verticalScroll(rememberScrollState())
             .padding(contentPadding)
             .fillMaxSize()
             .padding(horizontal = 24.dp, vertical = 48.dp)
 
         when (state) {
-            is ResultsOverviewState.Data -> ResultsView(
+            is ResultDetailState.Data -> ResultDetailView(
                 data = state,
-                onResultClick = onResultClick,
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(vertical = 16.dp),
-                contentPadding = contentPadding
-            )
-
-            ResultsOverviewState.Empty -> ResultsEmptyView(
-                onStartGame = onStartGameClick,
+                onStartGameClick = onStartGameClick,
                 modifier = contentModifier
             )
 
-            ResultsOverviewState.Loading -> ResultsLoadingView(contentModifier)
+            ResultDetailState.Error -> ResultDetailErrorView(contentModifier)
+
+            ResultDetailState.Loading -> ResultDetailLoadingView(contentModifier)
         }
     }
 }
 
 @CompactPreview
 @Composable
-private fun ResultsOverviewScreen_Loading_Preview() = SlidingNumbersTheme {
-    ResultsOverviewScreen(
+private fun ResultDetailScreen_Loading_Preview() = SlidingNumbersTheme {
+    ResultDetailScreen(
         navController = rememberNavController(),
-        state = ResultsOverviewState.Loading,
-        onResultClick = {},
+        state = ResultDetailState.Loading,
         onStartGameClick = {}
     )
 }
 
 @CompactPreview
 @Composable
-private fun ResultsOverviewScreen_Content_Preview() = SlidingNumbersTheme {
-    ResultsOverviewScreen(
+private fun ResultDetailScreen_Content_Preview() = SlidingNumbersTheme {
+    ResultDetailScreen(
         navController = rememberNavController(),
-        state = ResultsOverviewState.Data(
-            results = listOf(
-                GameResult(
-                    score = 1400,
-                    highest = 128,
-                    timestamp = Clock.System.now(),
-                    finalValues = List(16) { 0 }
-                ).apply { id = 0 },
-                GameResult(
-                    score = 3832,
-                    highest = 512,
-                    timestamp = Clock.System.now(),
-                    finalValues = List(16) { 0 }
-                ).apply { id = 1 }
+        state = ResultDetailState.Data(
+            result = GameResult(
+                score = 1400,
+                highest = 128,
+                timestamp = Clock.System.now(),
+                finalValues = List(16) { 0 }
             )
         ),
-        onResultClick = {},
         onStartGameClick = {}
     )
 }
 
 @CompactPreview
 @Composable
-private fun ResultsOverviewScreen_Empty_Preview() = SlidingNumbersTheme {
-    ResultsOverviewScreen(
+private fun ResultDetailScreen_Error_Preview() = SlidingNumbersTheme {
+    ResultDetailScreen(
         navController = rememberNavController(),
-        state = ResultsOverviewState.Empty,
-        onResultClick = {},
+        state = ResultDetailState.Error,
         onStartGameClick = {}
     )
 }

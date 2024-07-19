@@ -10,6 +10,9 @@ interface GameResultDao {
     @Insert
     suspend fun insert(result: GameResult)
 
+    @Query("SELECT * FROM results WHERE id = :id")
+    suspend fun getById(id: Long): GameResult
+
     @Query("SELECT * FROM results")
     suspend fun getAll(): List<GameResult>
 }

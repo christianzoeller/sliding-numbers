@@ -10,6 +10,9 @@ class GameResultRepository @Inject constructor(
     suspend fun addGameResult(result: GameResult) =
         gameResultDao.insert(result)
 
+    suspend fun getGameResultById(id: Long) =
+        gameResultDao.getById(id)
+
     suspend fun getAllResults() =
         gameResultDao.getAll()
 }

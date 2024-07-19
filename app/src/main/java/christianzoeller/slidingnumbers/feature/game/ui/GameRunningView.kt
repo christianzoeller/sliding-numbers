@@ -17,6 +17,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.dp
 import christianzoeller.slidingnumbers.feature.game.model.SwipeDirection
+import christianzoeller.slidingnumbers.ui.components.GameBoard
 import christianzoeller.slidingnumbers.ui.theme.SlidingNumbersTheme
 import christianzoeller.slidingnumbers.ui.tooling.CompactPreview
 import kotlin.math.abs

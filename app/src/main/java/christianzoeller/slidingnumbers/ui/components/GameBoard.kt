@@ -1,4 +1,4 @@
-package christianzoeller.slidingnumbers.feature.game.ui
+package christianzoeller.slidingnumbers.ui.components
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -139,7 +139,7 @@ private val valueColorMap = mapOf(
 
 @CompactPreview
 @Composable
-private fun GameRunningView_Preview() = SlidingNumbersTheme {
+private fun GameBoard_Preview() = SlidingNumbersTheme {
     GameBoard(
         values = listOf(
             2, 0, 0, 0,
