@@ -1,8 +1,11 @@
 package christianzoeller.slidingnumbers.feature.results.details
 
+import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.toRoute
+import christianzoeller.slidingnumbers.navigation.NavigationDestination
 import christianzoeller.slidingnumbers.repository.GameResultRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -19,22 +22,26 @@ class ResultDetailViewModel @Inject constructor(
     val state = _state.asStateFlow()
 
     private val gameResultId = savedStateHandle
-        .get<String>("id")
-        ?.toLongOrNull()
+        .toRoute<NavigationDestination.ResultDetail>()
+        .resultId
 
     init {
         load()
     }
 
     private fun load() {
-        if (gameResultId == null) {
-            _state.value = ResultDetailState.Error
-            return
-        }
-
         viewModelScope.launch {
-            val result = gameResultRepository.getGameResultById(gameResultId)
-            _state.value = ResultDetailState.Data(result)
+            val result = try {
+                gameResultRepository.getGameResultById(gameResultId)
+            } catch (e: Exception) {
+                Log.e("SN", "An error occurred fetching a game result: $e")
+                null
+            }
+
+            _state.value = when (result) {
+                null -> ResultDetailState.Error
+                else -> ResultDetailState.Data(result)
+            }
         }
     }
 }

@@ -11,14 +11,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import christianzoeller.slidingnumbers.R
-import christianzoeller.slidingnumbers.Screen
 import christianzoeller.slidingnumbers.feature.results.overview.ui.ResultsEmptyView
 import christianzoeller.slidingnumbers.feature.results.overview.ui.ResultsLoadingView
 import christianzoeller.slidingnumbers.feature.results.overview.ui.ResultsView
 import christianzoeller.slidingnumbers.model.GameResult
+import christianzoeller.slidingnumbers.navigation.NavigationDestination
+import christianzoeller.slidingnumbers.navigation.NavigationHandler
+import christianzoeller.slidingnumbers.navigation.NoOpNavigationHandler
 import christianzoeller.slidingnumbers.ui.components.BottomNavigationBar
 import christianzoeller.slidingnumbers.ui.theme.SlidingNumbersTheme
 import christianzoeller.slidingnumbers.ui.tooling.CompactPreview
@@ -26,26 +26,23 @@ import kotlinx.datetime.Clock
 
 @Composable
 fun ResultsOverviewScreen(
-    navController: NavHostController,
+    navigationHandler: NavigationHandler,
     viewModel: ResultsOverviewViewModel
 ) {
-    val state = viewModel.state.collectAsStateWithLifecycle(
-        // TODO workaround for https://issuetracker.google.com/issues/336842920#comment14
-        lifecycleOwner = androidx.compose.ui.platform.LocalLifecycleOwner.current
-    )
+    val state = viewModel.state.collectAsStateWithLifecycle()
 
     ResultsOverviewScreen(
-        navController = navController,
+        navigationHandler = navigationHandler,
         state = state.value,
-        onResultClick = { Screen.ResultDetail.navigate(navController, it) },
-        onStartGameClick = { Screen.Game.navigate(navController) }
+        onResultClick = { navigationHandler.navigate(NavigationDestination.ResultDetail(it)) },
+        onStartGameClick = { navigationHandler.navigate(NavigationDestination.Game) }
     )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun ResultsOverviewScreen(
-    navController: NavHostController,
+    navigationHandler: NavigationHandler,
     state: ResultsOverviewState,
     onResultClick: (Long) -> Unit,
     onStartGameClick: () -> Unit
@@ -59,7 +56,9 @@ private fun ResultsOverviewScreen(
             )
         },
         bottomBar = {
-            BottomNavigationBar(navController = navController)
+            BottomNavigationBar(
+                navigationHandler = navigationHandler
+            )
         }
     ) { contentPadding ->
         val contentModifier = Modifier
@@ -91,7 +90,7 @@ private fun ResultsOverviewScreen(
 @Composable
 private fun ResultsOverviewScreen_Loading_Preview() = SlidingNumbersTheme {
     ResultsOverviewScreen(
-        navController = rememberNavController(),
+        navigationHandler = NoOpNavigationHandler,
         state = ResultsOverviewState.Loading,
         onResultClick = {},
         onStartGameClick = {}
@@ -102,7 +101,7 @@ private fun ResultsOverviewScreen_Loading_Preview() = SlidingNumbersTheme {
 @Composable
 private fun ResultsOverviewScreen_Content_Preview() = SlidingNumbersTheme {
     ResultsOverviewScreen(
-        navController = rememberNavController(),
+        navigationHandler = NoOpNavigationHandler,
         state = ResultsOverviewState.Data(
             results = listOf(
                 GameResult(
@@ -128,7 +127,7 @@ private fun ResultsOverviewScreen_Content_Preview() = SlidingNumbersTheme {
 @Composable
 private fun ResultsOverviewScreen_Empty_Preview() = SlidingNumbersTheme {
     ResultsOverviewScreen(
-        navController = rememberNavController(),
+        navigationHandler = NoOpNavigationHandler,
         state = ResultsOverviewState.Empty,
         onResultClick = {},
         onStartGameClick = {}

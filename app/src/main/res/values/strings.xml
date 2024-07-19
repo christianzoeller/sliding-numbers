@@ -16,4 +16,5 @@
 	<string name="result_detail_you_won">You won! Go again?</string>
 	<string name="result_detail_you_lost">You didn\'t win this time, but you can always try again.</string>
 	<string name="result_detail_play_again">Play now!</string>
+	<string name="global_navigate_up_icon_description">Navigate up</string>
 </resources>
