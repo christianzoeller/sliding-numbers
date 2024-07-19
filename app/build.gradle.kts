@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.hilt.android)
+    alias(libs.plugins.kotlinx.serialization)
     alias(libs.plugins.ksp)
     id("kotlin-kapt")
 }
@@ -67,6 +68,7 @@ dependencies {
     implementation(libs.hilt.android)
     implementation(libs.hilt.navigation.compose)
     implementation(libs.kotlinx.datetime)
+    implementation(libs.kotlinx.serialization.json)
     implementation(libs.room.ktx)
     implementation(libs.room.runtime)
     testImplementation(libs.junit)
