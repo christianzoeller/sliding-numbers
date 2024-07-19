@@ -10,11 +10,12 @@
 	<string name="results_overview_number_of_points">%1$d points</string>
 	<string name="results_overview_won_abbreviation">W</string>
 	<string name="results_overview_lost_abbreviation">L</string>
-	<string name="result_detail_error_disclaimer">An error occurred.</string>
 	<string name="result_detail_header">Game result</string>
 	<string name="result_detail_your_score">Your score: %1$d</string>
 	<string name="result_detail_you_won">You won! Go again?</string>
 	<string name="result_detail_you_lost">You didn\'t win this time, but you can always try again.</string>
 	<string name="result_detail_play_again">Play now!</string>
 	<string name="global_navigate_up_icon_description">Navigate up</string>
+	<string name="global_loading_disclaimer">Loading ...</string>
+	<string name="global_error_disclaimer">An error occurred.</string>
 </resources>

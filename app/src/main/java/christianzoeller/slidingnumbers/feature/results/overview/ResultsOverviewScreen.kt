@@ -13,13 +13,13 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import christianzoeller.slidingnumbers.R
 import christianzoeller.slidingnumbers.feature.results.overview.ui.ResultsOverviewEmptyView
-import christianzoeller.slidingnumbers.feature.results.overview.ui.ResultsOverviewLoadingView
 import christianzoeller.slidingnumbers.feature.results.overview.ui.ResultsOverviewView
 import christianzoeller.slidingnumbers.model.GameResult
 import christianzoeller.slidingnumbers.navigation.NavigationDestination
 import christianzoeller.slidingnumbers.navigation.NavigationHandler
 import christianzoeller.slidingnumbers.navigation.NoOpNavigationHandler
 import christianzoeller.slidingnumbers.ui.components.BottomNavigationBar
+import christianzoeller.slidingnumbers.ui.components.DefaultLoadingView
 import christianzoeller.slidingnumbers.ui.theme.SlidingNumbersTheme
 import christianzoeller.slidingnumbers.ui.tooling.CompactPreview
 import kotlinx.datetime.Clock
@@ -61,11 +61,6 @@ private fun ResultsOverviewScreen(
             )
         }
     ) { contentPadding ->
-        val contentModifier = Modifier
-            .padding(contentPadding)
-            .fillMaxSize()
-            .padding(horizontal = 24.dp, vertical = 48.dp)
-
         when (state) {
             is ResultsOverviewState.Data -> ResultsOverviewView(
                 data = state,
@@ -78,10 +73,10 @@ private fun ResultsOverviewScreen(
 
             ResultsOverviewState.Empty -> ResultsOverviewEmptyView(
                 onStartGame = onStartGameClick,
-                modifier = contentModifier
+                contentPadding = contentPadding
             )
 
-            ResultsOverviewState.Loading -> ResultsOverviewLoadingView(contentModifier)
+            ResultsOverviewState.Loading -> DefaultLoadingView(contentPadding)
         }
     }
 }

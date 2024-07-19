@@ -19,14 +19,14 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import christianzoeller.slidingnumbers.navigation.NavigationDestination
 import christianzoeller.slidingnumbers.R
-import christianzoeller.slidingnumbers.feature.results.details.ui.ResultDetailErrorView
-import christianzoeller.slidingnumbers.feature.results.details.ui.ResultDetailLoadingView
 import christianzoeller.slidingnumbers.feature.results.details.ui.ResultDetailView
 import christianzoeller.slidingnumbers.model.GameResult
 import christianzoeller.slidingnumbers.navigation.NavigationAction
 import christianzoeller.slidingnumbers.navigation.NavigationHandler
 import christianzoeller.slidingnumbers.navigation.NoOpNavigationHandler
 import christianzoeller.slidingnumbers.ui.components.BottomNavigationBar
+import christianzoeller.slidingnumbers.ui.components.DefaultErrorView
+import christianzoeller.slidingnumbers.ui.components.DefaultLoadingView
 import christianzoeller.slidingnumbers.ui.theme.SlidingNumbersTheme
 import christianzoeller.slidingnumbers.ui.tooling.CompactPreview
 import kotlinx.datetime.Clock
@@ -85,9 +85,9 @@ private fun ResultDetailScreen(
                 modifier = contentModifier
             )
 
-            ResultDetailState.Error -> ResultDetailErrorView(contentModifier)
+            ResultDetailState.Error -> DefaultErrorView(contentPadding)
 
-            ResultDetailState.Loading -> ResultDetailLoadingView(contentModifier)
+            ResultDetailState.Loading -> DefaultLoadingView(contentPadding)
         }
     }
 }
