@@ -11,7 +11,7 @@ import christianzoeller.slidingnumbers.ui.theme.SlidingNumbersTheme
 import christianzoeller.slidingnumbers.ui.tooling.CompactPreview
 
 @Composable
-fun ResultsLoadingView(modifier: Modifier = Modifier) {
+fun ResultsOverviewLoadingView(modifier: Modifier = Modifier) {
     Box(
         modifier = modifier,
         contentAlignment = Alignment.Center
@@ -22,6 +22,6 @@ fun ResultsLoadingView(modifier: Modifier = Modifier) {
 
 @CompactPreview
 @Composable
-private fun ResultsLoadingView_Preview() = SlidingNumbersTheme {
-    ResultsLoadingView(modifier = Modifier.size(400.dp))
+private fun ResultsOverviewLoadingView_Preview() = SlidingNumbersTheme {
+    ResultsOverviewLoadingView(modifier = Modifier.size(400.dp))
 }

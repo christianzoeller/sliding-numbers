@@ -31,7 +31,7 @@ import kotlinx.datetime.toLocalDateTime
 import java.time.format.DateTimeFormatter
 
 @Composable
-fun ResultsView(
+fun ResultsOverviewView(
     data: ResultsOverviewState.Data,
     onResultClick: (Long) -> Unit,
     modifier: Modifier = Modifier,
@@ -83,8 +83,8 @@ fun ResultsView(
 
 @CompactPreview
 @Composable
-private fun ResultsView_Preview() = SlidingNumbersTheme {
-    ResultsView(
+private fun ResultsOverviewView_Preview() = SlidingNumbersTheme {
+    ResultsOverviewView(
         data = ResultsOverviewState.Data(
             results = listOf(
                 GameResult(

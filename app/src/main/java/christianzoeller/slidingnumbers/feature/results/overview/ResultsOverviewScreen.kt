@@ -12,9 +12,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import christianzoeller.slidingnumbers.R
-import christianzoeller.slidingnumbers.feature.results.overview.ui.ResultsEmptyView
-import christianzoeller.slidingnumbers.feature.results.overview.ui.ResultsLoadingView
-import christianzoeller.slidingnumbers.feature.results.overview.ui.ResultsView
+import christianzoeller.slidingnumbers.feature.results.overview.ui.ResultsOverviewEmptyView
+import christianzoeller.slidingnumbers.feature.results.overview.ui.ResultsOverviewLoadingView
+import christianzoeller.slidingnumbers.feature.results.overview.ui.ResultsOverviewView
 import christianzoeller.slidingnumbers.model.GameResult
 import christianzoeller.slidingnumbers.navigation.NavigationDestination
 import christianzoeller.slidingnumbers.navigation.NavigationHandler
@@ -67,7 +67,7 @@ private fun ResultsOverviewScreen(
             .padding(horizontal = 24.dp, vertical = 48.dp)
 
         when (state) {
-            is ResultsOverviewState.Data -> ResultsView(
+            is ResultsOverviewState.Data -> ResultsOverviewView(
                 data = state,
                 onResultClick = onResultClick,
                 modifier = Modifier
@@ -76,12 +76,12 @@ private fun ResultsOverviewScreen(
                 contentPadding = contentPadding
             )
 
-            ResultsOverviewState.Empty -> ResultsEmptyView(
+            ResultsOverviewState.Empty -> ResultsOverviewEmptyView(
                 onStartGame = onStartGameClick,
                 modifier = contentModifier
             )
 
-            ResultsOverviewState.Loading -> ResultsLoadingView(contentModifier)
+            ResultsOverviewState.Loading -> ResultsOverviewLoadingView(contentModifier)
         }
     }
 }

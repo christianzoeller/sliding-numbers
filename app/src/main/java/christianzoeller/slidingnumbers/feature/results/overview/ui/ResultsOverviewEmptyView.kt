@@ -18,7 +18,7 @@ import christianzoeller.slidingnumbers.ui.theme.SlidingNumbersTheme
 import christianzoeller.slidingnumbers.ui.tooling.CompactPreview
 
 @Composable
-fun ResultsEmptyView(
+fun ResultsOverviewEmptyView(
     onStartGame: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -40,8 +40,8 @@ fun ResultsEmptyView(
 
 @CompactPreview
 @Composable
-private fun ResultsEmptyView_Preview() = SlidingNumbersTheme {
-    ResultsEmptyView(
+private fun ResultsOverviewEmptyView_Preview() = SlidingNumbersTheme {
+    ResultsOverviewEmptyView(
         onStartGame = {},
         modifier = Modifier.padding(16.dp)
     )
