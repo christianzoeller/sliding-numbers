@@ -22,6 +22,13 @@ sealed interface NavigationDestination {
 
     @Serializable
     data class ResultDetail(val resultId: Long) : NavigationDestination
+
+    @Serializable
+    data object Preferences : BottomNavigationDestination(
+        labelId = R.string.preferences_tab_label,
+        navigationIcon = R.drawable.baseline_settings_24,
+        navigationIconDescription = R.string.preferences_tab_icon_description
+    )
 }
 
 sealed class BottomNavigationDestination(
@@ -40,5 +47,6 @@ sealed class BottomNavigationDestination(
 
 val bottomNavigationDestinations = listOf(
     NavigationDestination.Game,
-    NavigationDestination.ResultsOverview
+    NavigationDestination.ResultsOverview,
+    NavigationDestination.Preferences
 )
