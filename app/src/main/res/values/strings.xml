@@ -21,8 +21,8 @@
 	<string name="preferences_tab_label">Settings</string>
 	<string name="preferences_tab_icon_description">Go to the settings</string>
 	<string name="preferences_header">Settings</string>
-	<string name="preferences_ui_mode_label">Dark Mode</string>
-	<string name="preferences_ui_mode_light">Bright</string>
+	<string name="preferences_ui_mode_label">Appearance</string>
+	<string name="preferences_ui_mode_light">Light</string>
 	<string name="preferences_ui_mode_dark">Dark</string>
-	<string name="preferences_ui_mode_system">Use system settings</string>
+	<string name="preferences_ui_mode_system">System</string>
 </resources>

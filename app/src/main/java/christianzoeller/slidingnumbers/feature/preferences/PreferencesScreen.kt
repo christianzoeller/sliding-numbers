@@ -1,6 +1,5 @@
 package christianzoeller.slidingnumbers.feature.preferences
 
-import android.content.res.Configuration
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
@@ -15,10 +14,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import christianzoeller.slidingnumbers.R
+import christianzoeller.slidingnumbers.feature.preferences.model.UiMode
 import christianzoeller.slidingnumbers.feature.preferences.ui.PreferencesView
 import christianzoeller.slidingnumbers.navigation.NavigationHandler
 import christianzoeller.slidingnumbers.navigation.NoOpNavigationHandler
 import christianzoeller.slidingnumbers.ui.components.BottomNavigationBar
+import christianzoeller.slidingnumbers.ui.components.DefaultErrorView
 import christianzoeller.slidingnumbers.ui.components.DefaultLoadingView
 import christianzoeller.slidingnumbers.ui.theme.SlidingNumbersTheme
 import christianzoeller.slidingnumbers.ui.tooling.CompactPreview
@@ -68,6 +69,8 @@ private fun PreferencesScreen(
             )
 
             PreferencesState.Loading -> DefaultLoadingView(contentPadding)
+
+            PreferencesState.Error -> DefaultErrorView(contentPadding)
         }
     }
 }
@@ -88,8 +91,19 @@ private fun PreferencesScreen_Content_Preview() = SlidingNumbersTheme {
     PreferencesScreen(
         navigationHandler = NoOpNavigationHandler,
         state = PreferencesState.Data(
-            uiMode = Configuration.UI_MODE_NIGHT_YES
+            uiMode = UiMode.Light,
+            possibleUiModes = listOf(UiMode.Light, UiMode.Dark, UiMode.System)
         ),
+        onChangeUiMode = {}
+    )
+}
+
+@CompactPreview
+@Composable
+private fun PreferencesScreen_Error_Preview() = SlidingNumbersTheme {
+    PreferencesScreen(
+        navigationHandler = NoOpNavigationHandler,
+        state = PreferencesState.Error,
         onChangeUiMode = {}
     )
 }

@@ -2,6 +2,7 @@ package christianzoeller.slidingnumbers.feature.preferences
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import christianzoeller.slidingnumbers.feature.preferences.model.UiMode
 import christianzoeller.slidingnumbers.repository.PreferencesRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -19,7 +20,9 @@ class PreferencesViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             preferencesRepository.uiModeFlow.collect { uiMode ->
-                _state.value = PreferencesState.Data(uiMode)
+                _state.value = UiMode.getByValue(uiMode)?.let {
+                    PreferencesState.Data(it, UiMode.all)
+                } ?: PreferencesState.Error
             }
         }
     }
