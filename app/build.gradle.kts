@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.kotlinx.serialization)
     alias(libs.plugins.ksp)
     id("kotlin-kapt")
+    alias(libs.plugins.oss.licenses)
 }
 
 android {
@@ -70,6 +71,7 @@ dependencies {
     implementation(libs.hilt.navigation.compose)
     implementation(libs.kotlinx.datetime)
     implementation(libs.kotlinx.serialization.json)
+    implementation(libs.oss.licenses)
     implementation(libs.room.ktx)
     implementation(libs.room.runtime)
     testImplementation(libs.junit)
