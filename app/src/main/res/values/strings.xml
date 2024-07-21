@@ -29,4 +29,5 @@
 	<string name="preferences_view_oss_licenses">Open source licenses</string>
 	<string name="oss_licenses_overview_header">Open source licenses</string>
 	<string name="oss_licenses_overview_list_item_icon_description">Go to details about license of %1$s</string>
+	<string name="oss_license_detail_header">License for %1$s</string>
 </resources>

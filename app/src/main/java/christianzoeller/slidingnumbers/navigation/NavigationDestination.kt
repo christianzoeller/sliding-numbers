@@ -32,6 +32,13 @@ sealed interface NavigationDestination {
 
     @Serializable
     data object OssLicensesOverview : NavigationDestination
+
+    @Serializable
+    data class OssLicenseDetail(
+        val libraryName: String,
+        val libraryId: String,
+        val licenses: List<String>
+    ) : NavigationDestination
 }
 
 sealed class BottomNavigationDestination(

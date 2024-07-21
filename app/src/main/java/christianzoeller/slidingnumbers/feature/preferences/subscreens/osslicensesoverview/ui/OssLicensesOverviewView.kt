@@ -27,7 +27,7 @@ import kotlinx.collections.immutable.persistentSetOf
 @Composable
 fun OssLicensesOverviewView(
     data: OssLicensesOverviewState.Data,
-    onLibraryClick: (libraryId: String, licenses: List<String>) -> Unit,
+    onLibraryClick: (libraryName: String, libraryId: String, licenses: List<String>) -> Unit,
     contentPadding: PaddingValues
 ) {
     LazyColumn(
@@ -45,6 +45,7 @@ fun OssLicensesOverviewView(
                 modifier = Modifier.clickable(
                     onClick = {
                         onLibraryClick(
+                            library.name,
                             library.uniqueId,
                             library.licenses.map { it.name }
                         )
@@ -95,7 +96,7 @@ private fun OssLicensesOverviewView_Preview() = SlidingNumbersTheme {
                 licenses = persistentSetOf()
             )
         ),
-        onLibraryClick = { _, _ -> },
+        onLibraryClick = { _, _, _ -> },
         contentPadding = PaddingValues()
     )
 }

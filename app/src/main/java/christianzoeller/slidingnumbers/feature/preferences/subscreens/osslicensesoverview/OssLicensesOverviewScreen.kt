@@ -9,6 +9,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import christianzoeller.slidingnumbers.R
 import christianzoeller.slidingnumbers.feature.preferences.subscreens.osslicensesoverview.ui.OssLicensesOverviewView
+import christianzoeller.slidingnumbers.navigation.NavigationDestination
 import christianzoeller.slidingnumbers.navigation.NavigationHandler
 import christianzoeller.slidingnumbers.navigation.NoOpNavigationHandler
 import christianzoeller.slidingnumbers.repository.OssLicenseInfo
@@ -31,7 +32,15 @@ fun OssLicensesOverviewScreen(
     OssLicensesOverviewScreen(
         navigationHandler = navigationHandler,
         state = state.value,
-        onLibraryClick = { _, _ -> /* TODO */ }
+        onLibraryClick = { libraryName, libraryId, licenses ->
+            navigationHandler.navigate(
+                NavigationDestination.OssLicenseDetail(
+                    libraryName = libraryName,
+                    libraryId = libraryId,
+                    licenses = licenses
+                )
+            )
+        }
     )
 }
 
@@ -40,7 +49,7 @@ fun OssLicensesOverviewScreen(
 private fun OssLicensesOverviewScreen(
     navigationHandler: NavigationHandler,
     state: OssLicensesOverviewState,
-    onLibraryClick: (libraryId: String, licenses: List<String>) -> Unit
+    onLibraryClick: (libraryName: String, libraryId: String, licenses: List<String>) -> Unit
 ) {
     Scaffold(
         topBar = {
@@ -74,7 +83,7 @@ private fun OssLicensesOverviewScreen_Loading_Preview() = SlidingNumbersTheme {
     OssLicensesOverviewScreen(
         navigationHandler = NoOpNavigationHandler,
         state = OssLicensesOverviewState.Loading,
-        onLibraryClick = { _, _ -> }
+        onLibraryClick = { _, _, _ -> }
     )
 }
 
@@ -110,7 +119,7 @@ private fun OssLicensesOverviewScreen_Content_Preview() = SlidingNumbersTheme {
                 licenses = persistentSetOf()
             )
         ),
-        onLibraryClick = { _, _ -> }
+        onLibraryClick = { _, _, _ -> }
     )
 }
 
@@ -120,6 +129,6 @@ private fun OssLicensesOverviewScreen_Error_Preview() = SlidingNumbersTheme {
     OssLicensesOverviewScreen(
         navigationHandler = NoOpNavigationHandler,
         state = OssLicensesOverviewState.Error,
-        onLibraryClick = { _, _ -> }
+        onLibraryClick = { _, _, _ -> }
     )
 }

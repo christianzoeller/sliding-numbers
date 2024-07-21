@@ -23,6 +23,14 @@ class OssLicensesRepository @Inject constructor(
         ossLicenseInfo = loadLicenseInformation()
     }
 
+    fun getLibraryById(id: String) = ossLicenseInfo
+        ?.libraries
+        ?.firstOrNull { it.uniqueId == id }
+
+    fun getLicenseByName(name: String) = ossLicenseInfo
+        ?.licenses
+        ?.firstOrNull { it.name == name }
+
     private fun loadLicenseInformation() =
         try {
             context.assets
