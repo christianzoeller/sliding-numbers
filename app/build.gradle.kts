@@ -1,4 +1,5 @@
 plugins {
+    alias(libs.plugins.about.libraries)
     alias(libs.plugins.android.application)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.jetbrains.kotlin.android)
@@ -6,7 +7,6 @@ plugins {
     alias(libs.plugins.kotlinx.serialization)
     alias(libs.plugins.ksp)
     id("kotlin-kapt")
-    alias(libs.plugins.oss.licenses)
 }
 
 android {
@@ -56,6 +56,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.about.libraries.core)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -71,7 +72,6 @@ dependencies {
     implementation(libs.hilt.navigation.compose)
     implementation(libs.kotlinx.datetime)
     implementation(libs.kotlinx.serialization.json)
-    implementation(libs.oss.licenses)
     implementation(libs.room.ktx)
     implementation(libs.room.runtime)
     testImplementation(libs.junit)
