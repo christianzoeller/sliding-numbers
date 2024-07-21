@@ -25,4 +25,8 @@
 	<string name="preferences_ui_mode_light">Light</string>
 	<string name="preferences_ui_mode_dark">Dark</string>
 	<string name="preferences_ui_mode_system">System</string>
+	<string name="preferences_about_the_app_label">About the app</string>
+	<string name="preferences_view_oss_licenses">Open source licenses</string>
+	<string name="oss_licenses_overview_header">Open source licenses</string>
+	<string name="oss_licenses_overview_list_item_icon_description">Go to details about license of %1$s</string>
 </resources>

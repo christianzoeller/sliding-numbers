@@ -1,11 +1,16 @@
 package christianzoeller.slidingnumbers.feature.preferences.ui
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SegmentedButton
 import androidx.compose.material3.SegmentedButtonDefaults
@@ -25,10 +30,13 @@ import christianzoeller.slidingnumbers.ui.tooling.CompactPreview
 fun PreferencesView(
     data: PreferencesState.Data,
     onChangeUiMode: (Int) -> Unit,
+    onOssLicensesClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(modifier = modifier) {
         AppearanceSection(data = data, onChangeUiMode = onChangeUiMode)
+        Spacer(modifier = Modifier.height(64.dp))
+        AboutTheAppSection(onOssLicensesClick = onOssLicensesClick)
     }
 }
 
@@ -36,7 +44,7 @@ fun PreferencesView(
 @Composable
 private fun AppearanceSection(
     data: PreferencesState.Data,
-    onChangeUiMode: (Int) -> Unit,
+    onChangeUiMode: (Int) -> Unit
 ) {
     Text(
         text = stringResource(id = R.string.preferences_ui_mode_label),
@@ -61,6 +69,31 @@ private fun AppearanceSection(
     }
 }
 
+@Composable
+private fun AboutTheAppSection(
+    onOssLicensesClick: () -> Unit
+) {
+    Text(
+        text = stringResource(id = R.string.preferences_about_the_app_label),
+        style = MaterialTheme.typography.bodyLarge
+    )
+    Spacer(modifier = Modifier.height(16.dp))
+    ListItem(
+        headlineContent = {
+            Text(
+                text = stringResource(id = R.string.preferences_view_oss_licenses)
+            )
+        },
+        modifier = Modifier.clickable(onClick = onOssLicensesClick),
+        trailingContent = {
+            Icon(
+                imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
+                contentDescription = stringResource(id = R.string.preferences_view_oss_licenses)
+            )
+        }
+    )
+}
+
 @CompactPreview
 @Composable
 private fun PreferencesView_Preview() = SlidingNumbersTheme {
@@ -70,6 +103,7 @@ private fun PreferencesView_Preview() = SlidingNumbersTheme {
             possibleUiModes = listOf(UiMode.Light, UiMode.Dark, UiMode.System)
         ),
         onChangeUiMode = {},
+        onOssLicensesClick = {},
         modifier = Modifier.padding(16.dp)
     )
 }

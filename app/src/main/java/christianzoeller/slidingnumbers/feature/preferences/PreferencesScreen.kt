@@ -16,6 +16,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import christianzoeller.slidingnumbers.R
 import christianzoeller.slidingnumbers.feature.preferences.model.UiMode
 import christianzoeller.slidingnumbers.feature.preferences.ui.PreferencesView
+import christianzoeller.slidingnumbers.navigation.NavigationDestination
 import christianzoeller.slidingnumbers.navigation.NavigationHandler
 import christianzoeller.slidingnumbers.navigation.NoOpNavigationHandler
 import christianzoeller.slidingnumbers.ui.components.BottomNavigationBar
@@ -34,7 +35,10 @@ fun PreferencesScreen(
     PreferencesScreen(
         navigationHandler = navigationHandler,
         state = state.value,
-        onChangeUiMode = viewModel::onChangeUiMode
+        onChangeUiMode = viewModel::onChangeUiMode,
+        onOssLicensesClick = {
+            navigationHandler.navigate(NavigationDestination.OssLicensesOverview)
+        }
     )
 }
 
@@ -43,7 +47,8 @@ fun PreferencesScreen(
 private fun PreferencesScreen(
     navigationHandler: NavigationHandler,
     state: PreferencesState,
-    onChangeUiMode: (Int) -> Unit
+    onChangeUiMode: (Int) -> Unit,
+    onOssLicensesClick: () -> Unit
 ) {
     Scaffold(
         topBar = {
@@ -61,6 +66,7 @@ private fun PreferencesScreen(
             is PreferencesState.Data -> PreferencesView(
                 data = state,
                 onChangeUiMode = onChangeUiMode,
+                onOssLicensesClick = onOssLicensesClick,
                 modifier = Modifier
                     .verticalScroll(rememberScrollState())
                     .padding(contentPadding)
@@ -81,7 +87,8 @@ private fun PreferencesScreen_Loading_Preview() = SlidingNumbersTheme {
     PreferencesScreen(
         navigationHandler = NoOpNavigationHandler,
         state = PreferencesState.Loading,
-        onChangeUiMode = {}
+        onChangeUiMode = {},
+        onOssLicensesClick = {}
     )
 }
 
@@ -94,7 +101,8 @@ private fun PreferencesScreen_Content_Preview() = SlidingNumbersTheme {
             uiMode = UiMode.Light,
             possibleUiModes = listOf(UiMode.Light, UiMode.Dark, UiMode.System)
         ),
-        onChangeUiMode = {}
+        onChangeUiMode = {},
+        onOssLicensesClick = {}
     )
 }
 
@@ -104,6 +112,7 @@ private fun PreferencesScreen_Error_Preview() = SlidingNumbersTheme {
     PreferencesScreen(
         navigationHandler = NoOpNavigationHandler,
         state = PreferencesState.Error,
-        onChangeUiMode = {}
+        onChangeUiMode = {},
+        onOssLicensesClick = {}
     )
 }

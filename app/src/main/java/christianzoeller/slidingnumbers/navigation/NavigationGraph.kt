@@ -12,6 +12,8 @@ import christianzoeller.slidingnumbers.feature.game.GameScreen
 import christianzoeller.slidingnumbers.feature.game.GameViewModel
 import christianzoeller.slidingnumbers.feature.preferences.PreferencesScreen
 import christianzoeller.slidingnumbers.feature.preferences.PreferencesViewModel
+import christianzoeller.slidingnumbers.feature.preferences.subscreens.osslicensesoverview.OssLicensesOverviewScreen
+import christianzoeller.slidingnumbers.feature.preferences.subscreens.osslicensesoverview.OssLicensesOverviewViewModel
 import christianzoeller.slidingnumbers.feature.results.details.ResultDetailScreen
 import christianzoeller.slidingnumbers.feature.results.details.ResultDetailViewModel
 import christianzoeller.slidingnumbers.feature.results.overview.ResultsOverviewScreen
@@ -53,6 +55,13 @@ fun NavigationGraph() {
 
             val viewModel = hiltViewModel<PreferencesViewModel>()
             PreferencesScreen(navigationHandler, viewModel)
+        }
+
+        composable<NavigationDestination.OssLicensesOverview> {
+            navigationHandler.selectedTab.value = NavigationDestination.Preferences
+
+            val viewModel = hiltViewModel<OssLicensesOverviewViewModel>()
+            OssLicensesOverviewScreen(navigationHandler, viewModel)
         }
     }
 }

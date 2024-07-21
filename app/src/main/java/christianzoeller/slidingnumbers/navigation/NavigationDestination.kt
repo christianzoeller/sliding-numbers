@@ -29,6 +29,9 @@ sealed interface NavigationDestination {
         navigationIcon = R.drawable.baseline_settings_24,
         navigationIconDescription = R.string.preferences_tab_icon_description
     )
+
+    @Serializable
+    data object OssLicensesOverview : NavigationDestination
 }
 
 sealed class BottomNavigationDestination(
