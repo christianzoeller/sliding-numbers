@@ -4,6 +4,7 @@ import christianzoeller.slidingnumbers.datasource.GameResultDao
 import christianzoeller.slidingnumbers.feature.game.model.SwipeDirection
 import christianzoeller.slidingnumbers.model.GameResult
 import christianzoeller.slidingnumbers.repository.GameResultRepository
+import kotlinx.datetime.Clock
 import org.junit.Assert
 import org.junit.Test
 
@@ -82,6 +83,12 @@ class GameViewModelTest {
 // region Mocks
 private object FakeGameResultDao : GameResultDao {
     override suspend fun insert(result: GameResult) {}
+    override suspend fun getById(id: Long) = GameResult(
+        score = 0,
+        highest = 0,
+        timestamp = Clock.System.now(),
+        finalValues = List(16) { 0 }
+    )
 
     override suspend fun getAll(): List<GameResult> = emptyList()
 
