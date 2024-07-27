@@ -29,6 +29,7 @@ import christianzoeller.slidingnumbers.ui.components.DefaultErrorView
 import christianzoeller.slidingnumbers.ui.components.DefaultLoadingView
 import christianzoeller.slidingnumbers.ui.theme.SlidingNumbersTheme
 import christianzoeller.slidingnumbers.ui.tooling.CompactPreview
+import com.mikepenz.aboutlibraries.entity.Developer
 import com.mikepenz.aboutlibraries.entity.Library
 import com.mikepenz.aboutlibraries.entity.License
 import kotlinx.collections.immutable.persistentListOf
@@ -116,16 +117,19 @@ private fun OssLicenseDetailScreen_Content_Preview() = SlidingNumbersTheme {
                 uniqueId = "1",
                 artifactVersion = null,
                 name = "kotlinx.datetime",
-                description = null,
-                website = null,
-                developers = persistentListOf(),
+                description = "A multiplatform Kotlin library for working with date and time.",
+                website = "https://github.com/Kotlin/kotlinx-datetime",
+                developers = persistentListOf(
+                    Developer("Jetbrains Team", Uri.EMPTY.toString())
+                ),
                 organization = null,
                 scm = null
             ),
             licenses = listOf(
                 License(
                     name = "Apache-2.0",
-                    url = Uri.EMPTY.toString(),
+                    url = "https://github.com/Kotlin/kotlinx-datetime?tab=Apache-2.0-1-ov-file#readme",
+                    licenseContent = "TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION",
                     hash = ""
                 )
             )
