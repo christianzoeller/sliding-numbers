@@ -13,7 +13,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import christianzoeller.slidingnumbers.R
 import christianzoeller.slidingnumbers.ui.components.GameBoard
 import christianzoeller.slidingnumbers.ui.theme.SlidingNumbersTheme
 import christianzoeller.slidingnumbers.ui.tooling.CompactPreview
@@ -41,11 +43,17 @@ fun GameFinishedView(
             )
         )
         Text(
-            text = "Score: $score",
+            text = stringResource(
+                id = R.string.game_current_score,
+                score
+            ),
             style = MaterialTheme.typography.titleLarge
         )
         Text(
-            text = if (won) "You won!" else "Maybe next time...",
+            text = if (won)
+                stringResource(id = R.string.game_finished_you_won)
+            else
+                stringResource(id = R.string.game_finished_you_lost),
             modifier = Modifier.padding(vertical = 24.dp),
             style = if (won)
                 MaterialTheme.typography.displaySmall
@@ -57,7 +65,7 @@ fun GameFinishedView(
             onClick = onRestart,
             modifier = Modifier.padding(bottom = 24.dp)
         ) {
-            Text(text = "New game")
+            Text(text = stringResource(id = R.string.game_finished_play_again))
         }
     }
 }

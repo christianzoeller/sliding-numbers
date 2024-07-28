@@ -15,7 +15,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import christianzoeller.slidingnumbers.R
 import christianzoeller.slidingnumbers.ui.components.GameBoard
 import christianzoeller.slidingnumbers.ui.theme.SlidingNumbersTheme
 import christianzoeller.slidingnumbers.ui.tooling.CompactPreview
@@ -51,7 +53,7 @@ fun GameNotStartedView(
                 contentAlignment = Alignment.Center
             ) {
                 Text(
-                    text = "2048",
+                    text = stringResource(id = R.string.game_board_overlay_text),
                     style = MaterialTheme.typography.displayMedium,
                     color = MaterialTheme.colorScheme.onPrimaryContainer
                 )
@@ -62,7 +64,7 @@ fun GameNotStartedView(
             onClick = onStart,
             modifier = Modifier.padding(bottom = 24.dp)
         ) {
-            Text(text = "Start game")
+            Text(text = stringResource(id = R.string.game_start_game))
         }
     }
 }

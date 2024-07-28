@@ -31,4 +31,10 @@
 	<string name="oss_licenses_overview_list_item_icon_description">Go to details about license of %1$s</string>
 	<string name="oss_license_detail_header">License for %1$s</string>
 	<string name="oss_license_detail_license_header">License</string>
+	<string name="game_current_score">Score: %1$d</string>
+	<string name="game_finished_you_won">You won! 🎉</string>
+	<string name="game_finished_you_lost">Maybe next time…</string>
+	<string name="game_start_game">Play now!</string>
+	<string name="game_board_overlay_text">2048</string>
+	<string name="game_finished_play_again">Play again</string>
 </resources>

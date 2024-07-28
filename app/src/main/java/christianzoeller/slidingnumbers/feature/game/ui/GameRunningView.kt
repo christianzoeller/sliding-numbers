@@ -19,7 +19,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import christianzoeller.slidingnumbers.R
 import christianzoeller.slidingnumbers.feature.game.model.SwipeDirection
 import christianzoeller.slidingnumbers.ui.components.GameBoard
 import christianzoeller.slidingnumbers.ui.theme.SlidingNumbersTheme
@@ -91,7 +93,10 @@ fun GameRunningView(
                 )
         )
         Text(
-            text = "Score: $score",
+            text = stringResource(
+                id = R.string.game_current_score,
+                score
+            ),
             modifier = Modifier.padding(bottom = 32.dp),
             style = MaterialTheme.typography.titleLarge
         )
