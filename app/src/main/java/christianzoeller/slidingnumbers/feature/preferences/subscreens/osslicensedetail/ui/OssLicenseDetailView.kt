@@ -21,12 +21,11 @@ import androidx.compose.ui.unit.dp
 import christianzoeller.slidingnumbers.R
 import christianzoeller.slidingnumbers.feature.preferences.subscreens.osslicensedetail.OssLicenseDetailState
 import christianzoeller.slidingnumbers.ui.extensions.defaultScreenModifier
+import christianzoeller.slidingnumbers.ui.previewmocks.OssLicenseInfoMocks
 import christianzoeller.slidingnumbers.ui.theme.SlidingNumbersTheme
 import christianzoeller.slidingnumbers.ui.tooling.CompactPreview
-import com.mikepenz.aboutlibraries.entity.Developer
 import com.mikepenz.aboutlibraries.entity.Library
 import com.mikepenz.aboutlibraries.entity.License
-import kotlinx.collections.immutable.persistentListOf
 
 @Composable
 fun OssLicenseDetailView(
@@ -156,26 +155,8 @@ private fun OssLicenseDetailView_Preview() = SlidingNumbersTheme {
     OssLicenseDetailView(
         data = OssLicenseDetailState.Data(
             libraryName = "kotlinx.datetime",
-            library = Library(
-                uniqueId = "1",
-                artifactVersion = null,
-                name = "kotlinx.datetime",
-                description = "A multiplatform Kotlin library for working with date and time.",
-                website = "https://github.com/Kotlin/kotlinx-datetime",
-                developers = persistentListOf(
-                    Developer("Jetbrains Team", Uri.EMPTY.toString())
-                ),
-                organization = null,
-                scm = null
-            ),
-            licenses = listOf(
-                License(
-                    name = "Apache-2.0",
-                    url = "https://github.com/Kotlin/kotlinx-datetime?tab=Apache-2.0-1-ov-file#readme",
-                    licenseContent = "TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION",
-                    hash = ""
-                )
-            )
+            library = OssLicenseInfoMocks.library,
+            licenses = listOf(OssLicenseInfoMocks.license)
         ),
         contentPadding = PaddingValues()
     )

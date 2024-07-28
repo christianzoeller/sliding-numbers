@@ -12,15 +12,12 @@ import christianzoeller.slidingnumbers.feature.preferences.subscreens.osslicense
 import christianzoeller.slidingnumbers.navigation.NavigationDestination
 import christianzoeller.slidingnumbers.navigation.NavigationHandler
 import christianzoeller.slidingnumbers.navigation.NoOpNavigationHandler
-import christianzoeller.slidingnumbers.repository.OssLicenseInfo
 import christianzoeller.slidingnumbers.ui.components.BottomNavigationBar
 import christianzoeller.slidingnumbers.ui.components.DefaultErrorView
 import christianzoeller.slidingnumbers.ui.components.DefaultLoadingView
+import christianzoeller.slidingnumbers.ui.previewmocks.OssLicenseInfoMocks
 import christianzoeller.slidingnumbers.ui.theme.SlidingNumbersTheme
 import christianzoeller.slidingnumbers.ui.tooling.CompactPreview
-import com.mikepenz.aboutlibraries.entity.Library
-import kotlinx.collections.immutable.persistentListOf
-import kotlinx.collections.immutable.persistentSetOf
 
 @Composable
 fun OssLicensesOverviewScreen(
@@ -92,33 +89,7 @@ private fun OssLicensesOverviewScreen_Loading_Preview() = SlidingNumbersTheme {
 private fun OssLicensesOverviewScreen_Content_Preview() = SlidingNumbersTheme {
     OssLicensesOverviewScreen(
         navigationHandler = NoOpNavigationHandler,
-        state = OssLicensesOverviewState.Data(
-            OssLicenseInfo(
-                libraries = persistentListOf(
-                    Library(
-                        uniqueId = "1",
-                        artifactVersion = null,
-                        name = "kotlinx.datetime",
-                        description = null,
-                        website = null,
-                        developers = persistentListOf(),
-                        organization = null,
-                        scm = null
-                    ),
-                    Library(
-                        uniqueId = "2",
-                        artifactVersion = null,
-                        name = "kotlinx.serialization",
-                        description = null,
-                        website = null,
-                        developers = persistentListOf(),
-                        organization = null,
-                        scm = null
-                    )
-                ),
-                licenses = persistentSetOf()
-            )
-        ),
+        state = OssLicensesOverviewState.Data(OssLicenseInfoMocks.info),
         onLibraryClick = { _, _, _ -> }
     )
 }

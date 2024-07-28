@@ -17,12 +17,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import christianzoeller.slidingnumbers.R
 import christianzoeller.slidingnumbers.feature.preferences.subscreens.osslicensesoverview.OssLicensesOverviewState
-import christianzoeller.slidingnumbers.repository.OssLicenseInfo
+import christianzoeller.slidingnumbers.ui.previewmocks.OssLicenseInfoMocks
 import christianzoeller.slidingnumbers.ui.theme.SlidingNumbersTheme
 import christianzoeller.slidingnumbers.ui.tooling.CompactPreview
-import com.mikepenz.aboutlibraries.entity.Library
-import kotlinx.collections.immutable.persistentListOf
-import kotlinx.collections.immutable.persistentSetOf
 
 @Composable
 fun OssLicensesOverviewView(
@@ -69,33 +66,7 @@ fun OssLicensesOverviewView(
 @Composable
 private fun OssLicensesOverviewView_Preview() = SlidingNumbersTheme {
     OssLicensesOverviewView(
-        data = OssLicensesOverviewState.Data(
-            OssLicenseInfo(
-                libraries = persistentListOf(
-                    Library(
-                        uniqueId = "1",
-                        artifactVersion = null,
-                        name = "kotlinx.datetime",
-                        description = null,
-                        website = null,
-                        developers = persistentListOf(),
-                        organization = null,
-                        scm = null
-                    ),
-                    Library(
-                        uniqueId = "2",
-                        artifactVersion = null,
-                        name = "kotlinx.serialization",
-                        description = null,
-                        website = null,
-                        developers = persistentListOf(),
-                        organization = null,
-                        scm = null
-                    )
-                ),
-                licenses = persistentSetOf()
-            )
-        ),
+        data = OssLicensesOverviewState.Data(OssLicenseInfoMocks.info),
         onLibraryClick = { _, _, _ -> },
         contentPadding = PaddingValues()
     )

@@ -21,10 +21,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import christianzoeller.slidingnumbers.R
 import christianzoeller.slidingnumbers.feature.results.overview.ResultsOverviewState
-import christianzoeller.slidingnumbers.model.GameResult
+import christianzoeller.slidingnumbers.ui.previewmocks.GameResultMocks
 import christianzoeller.slidingnumbers.ui.theme.SlidingNumbersTheme
 import christianzoeller.slidingnumbers.ui.tooling.CompactPreview
-import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toJavaLocalDateTime
@@ -87,22 +86,7 @@ fun ResultsOverviewView(
 @Composable
 private fun ResultsOverviewView_Preview() = SlidingNumbersTheme {
     ResultsOverviewView(
-        data = ResultsOverviewState.Data(
-            results = listOf(
-                GameResult(
-                    score = 1400,
-                    highest = 128,
-                    timestamp = Clock.System.now(),
-                    finalValues = List(16) { 0 }
-                ).apply { id = 0 },
-                GameResult(
-                    score = 3832,
-                    highest = 512,
-                    timestamp = Clock.System.now(),
-                    finalValues = List(16) { 0 }
-                ).apply { id = 1 }
-            )
-        ),
+        data = ResultsOverviewState.Data(results = GameResultMocks.list),
         onResultClick = {},
         contentPadding = PaddingValues()
     )

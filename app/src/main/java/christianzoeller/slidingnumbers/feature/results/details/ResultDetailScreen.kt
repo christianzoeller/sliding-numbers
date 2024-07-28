@@ -14,16 +14,15 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import christianzoeller.slidingnumbers.navigation.NavigationDestination
 import christianzoeller.slidingnumbers.R
 import christianzoeller.slidingnumbers.feature.results.details.ui.ResultDetailView
-import christianzoeller.slidingnumbers.model.GameResult
 import christianzoeller.slidingnumbers.navigation.NavigationAction
 import christianzoeller.slidingnumbers.navigation.NavigationHandler
 import christianzoeller.slidingnumbers.navigation.NoOpNavigationHandler
 import christianzoeller.slidingnumbers.ui.components.BottomNavigationBar
 import christianzoeller.slidingnumbers.ui.components.DefaultErrorView
 import christianzoeller.slidingnumbers.ui.components.DefaultLoadingView
+import christianzoeller.slidingnumbers.ui.previewmocks.GameResultMocks
 import christianzoeller.slidingnumbers.ui.theme.SlidingNumbersTheme
 import christianzoeller.slidingnumbers.ui.tooling.CompactPreview
-import kotlinx.datetime.Clock
 
 @Composable
 fun ResultDetailScreen(
@@ -95,14 +94,7 @@ private fun ResultDetailScreen_Loading_Preview() = SlidingNumbersTheme {
 private fun ResultDetailScreen_Content_Preview() = SlidingNumbersTheme {
     ResultDetailScreen(
         navigationHandler = NoOpNavigationHandler,
-        state = ResultDetailState.Data(
-            result = GameResult(
-                score = 1400,
-                highest = 128,
-                timestamp = Clock.System.now(),
-                finalValues = List(16) { 0 }
-            )
-        ),
+        state = ResultDetailState.Data(result = GameResultMocks.first),
         onStartGameClick = {}
     )
 }

@@ -14,12 +14,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import christianzoeller.slidingnumbers.R
 import christianzoeller.slidingnumbers.feature.results.details.ResultDetailState
-import christianzoeller.slidingnumbers.model.GameResult
 import christianzoeller.slidingnumbers.ui.components.GameBoard
 import christianzoeller.slidingnumbers.ui.extensions.defaultScreenModifier
+import christianzoeller.slidingnumbers.ui.previewmocks.GameResultMocks
 import christianzoeller.slidingnumbers.ui.theme.SlidingNumbersTheme
 import christianzoeller.slidingnumbers.ui.tooling.CompactPreview
-import kotlinx.datetime.Clock
 
 @Composable
 fun ResultDetailView(
@@ -69,14 +68,7 @@ fun ResultDetailView(
 @Composable
 private fun ResultDetailView_Preview() = SlidingNumbersTheme {
     ResultDetailView(
-        data = ResultDetailState.Data(
-            result = GameResult(
-                score = 1400,
-                highest = 128,
-                timestamp = Clock.System.now(),
-                finalValues = List(16) { 0 }
-            )
-        ),
+        data = ResultDetailState.Data(result = GameResultMocks.first),
         onStartGameClick = {},
         contentPadding = PaddingValues()
     )

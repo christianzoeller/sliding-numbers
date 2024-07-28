@@ -1,6 +1,5 @@
 package christianzoeller.slidingnumbers.feature.preferences.subscreens.osslicensedetail
 
-import android.net.Uri
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -21,12 +20,9 @@ import christianzoeller.slidingnumbers.navigation.NoOpNavigationHandler
 import christianzoeller.slidingnumbers.ui.components.BottomNavigationBar
 import christianzoeller.slidingnumbers.ui.components.DefaultErrorView
 import christianzoeller.slidingnumbers.ui.components.DefaultLoadingView
+import christianzoeller.slidingnumbers.ui.previewmocks.OssLicenseInfoMocks
 import christianzoeller.slidingnumbers.ui.theme.SlidingNumbersTheme
 import christianzoeller.slidingnumbers.ui.tooling.CompactPreview
-import com.mikepenz.aboutlibraries.entity.Developer
-import com.mikepenz.aboutlibraries.entity.Library
-import com.mikepenz.aboutlibraries.entity.License
-import kotlinx.collections.immutable.persistentListOf
 
 @Composable
 fun OssLicenseDetailScreen(
@@ -103,26 +99,8 @@ private fun OssLicenseDetailScreen_Content_Preview() = SlidingNumbersTheme {
         navigationHandler = NoOpNavigationHandler,
         state = OssLicenseDetailState.Data(
             libraryName = "kotlinx.datetime",
-            library = Library(
-                uniqueId = "1",
-                artifactVersion = null,
-                name = "kotlinx.datetime",
-                description = "A multiplatform Kotlin library for working with date and time.",
-                website = "https://github.com/Kotlin/kotlinx-datetime",
-                developers = persistentListOf(
-                    Developer("Jetbrains Team", Uri.EMPTY.toString())
-                ),
-                organization = null,
-                scm = null
-            ),
-            licenses = listOf(
-                License(
-                    name = "Apache-2.0",
-                    url = "https://github.com/Kotlin/kotlinx-datetime?tab=Apache-2.0-1-ov-file#readme",
-                    licenseContent = "TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION",
-                    hash = ""
-                )
-            )
+            library = OssLicenseInfoMocks.library,
+            licenses = listOf(OssLicenseInfoMocks.license)
         )
     )
 }
