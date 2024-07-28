@@ -18,7 +18,8 @@ class CorrectnessTest {
             .assertTrue { function ->
                 val hasContentPaddingParameter = function.hasParameter { parameter ->
                     parameter.hasTypeOf(PaddingValues::class) &&
-                            parameter.name == contentPaddingParameterName
+                            parameter.name == contentPaddingParameterName &&
+                            !parameter.hasDefaultValue()
                 }
 
                 val hasModifierParameter = function.hasParameter { parameter ->

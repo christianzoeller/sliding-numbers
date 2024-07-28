@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -34,11 +35,12 @@ import java.time.format.DateTimeFormatter
 fun ResultsOverviewView(
     data: ResultsOverviewState.Data,
     onResultClick: (Long) -> Unit,
-    modifier: Modifier = Modifier,
-    contentPadding: PaddingValues = PaddingValues()
+    contentPadding: PaddingValues
 ) {
     LazyColumn(
-        modifier = modifier,
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(vertical = 16.dp),
         contentPadding = contentPadding
     ) {
         items(
@@ -102,7 +104,7 @@ private fun ResultsOverviewView_Preview() = SlidingNumbersTheme {
             )
         ),
         onResultClick = {},
-        modifier = Modifier.padding(16.dp)
+        contentPadding = PaddingValues()
     )
 }
 

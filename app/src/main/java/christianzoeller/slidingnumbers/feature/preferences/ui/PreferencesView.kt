@@ -2,10 +2,10 @@ package christianzoeller.slidingnumbers.feature.preferences.ui
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import christianzoeller.slidingnumbers.R
 import christianzoeller.slidingnumbers.feature.preferences.PreferencesState
 import christianzoeller.slidingnumbers.feature.preferences.model.UiMode
+import christianzoeller.slidingnumbers.ui.extensions.defaultScreenModifier
 import christianzoeller.slidingnumbers.ui.theme.SlidingNumbersTheme
 import christianzoeller.slidingnumbers.ui.tooling.CompactPreview
 
@@ -31,9 +32,9 @@ fun PreferencesView(
     data: PreferencesState.Data,
     onChangeUiMode: (Int) -> Unit,
     onOssLicensesClick: () -> Unit,
-    modifier: Modifier = Modifier
+    contentPadding: PaddingValues
 ) {
-    Column(modifier = modifier) {
+    Column(modifier = Modifier.defaultScreenModifier(contentPadding)) {
         AppearanceSection(data = data, onChangeUiMode = onChangeUiMode)
         Spacer(modifier = Modifier.height(64.dp))
         AboutTheAppSection(onOssLicensesClick = onOssLicensesClick)
@@ -104,6 +105,6 @@ private fun PreferencesView_Preview() = SlidingNumbersTheme {
         ),
         onChangeUiMode = {},
         onOssLicensesClick = {},
-        modifier = Modifier.padding(16.dp)
+        contentPadding = PaddingValues()
     )
 }

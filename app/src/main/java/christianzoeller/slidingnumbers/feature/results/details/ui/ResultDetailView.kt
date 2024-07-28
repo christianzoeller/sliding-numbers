@@ -1,6 +1,7 @@
 package christianzoeller.slidingnumbers.feature.results.details.ui
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
@@ -15,6 +16,7 @@ import christianzoeller.slidingnumbers.R
 import christianzoeller.slidingnumbers.feature.results.details.ResultDetailState
 import christianzoeller.slidingnumbers.model.GameResult
 import christianzoeller.slidingnumbers.ui.components.GameBoard
+import christianzoeller.slidingnumbers.ui.extensions.defaultScreenModifier
 import christianzoeller.slidingnumbers.ui.theme.SlidingNumbersTheme
 import christianzoeller.slidingnumbers.ui.tooling.CompactPreview
 import kotlinx.datetime.Clock
@@ -23,10 +25,10 @@ import kotlinx.datetime.Clock
 fun ResultDetailView(
     data: ResultDetailState.Data,
     onStartGameClick: () -> Unit,
-    modifier: Modifier = Modifier
+    contentPadding: PaddingValues
 ) {
     Column(
-        modifier = modifier,
+        modifier = Modifier.defaultScreenModifier(contentPadding),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
@@ -76,6 +78,6 @@ private fun ResultDetailView_Preview() = SlidingNumbersTheme {
             )
         ),
         onStartGameClick = {},
-        modifier = Modifier.padding(16.dp)
+        contentPadding = PaddingValues()
     )
 }

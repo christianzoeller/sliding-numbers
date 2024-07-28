@@ -6,9 +6,9 @@ import android.net.Uri
 import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -20,6 +20,7 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import christianzoeller.slidingnumbers.R
 import christianzoeller.slidingnumbers.feature.preferences.subscreens.osslicensedetail.OssLicenseDetailState
+import christianzoeller.slidingnumbers.ui.extensions.defaultScreenModifier
 import christianzoeller.slidingnumbers.ui.theme.SlidingNumbersTheme
 import christianzoeller.slidingnumbers.ui.tooling.CompactPreview
 import com.mikepenz.aboutlibraries.entity.Developer
@@ -27,13 +28,12 @@ import com.mikepenz.aboutlibraries.entity.Library
 import com.mikepenz.aboutlibraries.entity.License
 import kotlinx.collections.immutable.persistentListOf
 
-
 @Composable
 fun OssLicenseDetailView(
     data: OssLicenseDetailState.Data,
-    modifier: Modifier = Modifier
+    contentPadding: PaddingValues
 ) {
-    Column(modifier = modifier) {
+    Column(modifier = Modifier.defaultScreenModifier(contentPadding)) {
         LibrarySectionHeader(library = data.library)
         Spacer(modifier = Modifier.height(24.dp))
         LibrarySection(library = data.library)
@@ -177,7 +177,7 @@ private fun OssLicenseDetailView_Preview() = SlidingNumbersTheme {
                 )
             )
         ),
-        modifier = Modifier.padding(16.dp)
+        contentPadding = PaddingValues()
     )
 }
 

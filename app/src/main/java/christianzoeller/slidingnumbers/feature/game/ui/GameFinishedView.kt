@@ -1,8 +1,12 @@
 package christianzoeller.slidingnumbers.feature.game.ui
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -20,10 +24,13 @@ fun GameFinishedView(
     score: Int,
     won: Boolean,
     onRestart: () -> Unit,
-    modifier: Modifier = Modifier
+    contentPadding: PaddingValues
 ) {
     Column(
-        modifier = modifier,
+        modifier = Modifier
+            .verticalScroll(rememberScrollState())
+            .padding(contentPadding)
+            .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         GameBoard(
@@ -67,7 +74,8 @@ private fun GameFinishedView_Won_Preview() = SlidingNumbersTheme {
         ),
         score = 512,
         won = true,
-        onRestart = {}
+        onRestart = {},
+        contentPadding = PaddingValues()
     )
 }
 
@@ -83,6 +91,7 @@ private fun GameFinishedView_Lost_Preview() = SlidingNumbersTheme {
         ),
         score = 512,
         won = false,
-        onRestart = {}
+        onRestart = {},
+        contentPadding = PaddingValues()
     )
 }

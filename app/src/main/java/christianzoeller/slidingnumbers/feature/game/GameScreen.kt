@@ -1,12 +1,7 @@
 package christianzoeller.slidingnumbers.feature.game
 
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import christianzoeller.slidingnumbers.feature.game.model.SwipeDirection
 import christianzoeller.slidingnumbers.feature.game.ui.GameFinishedView
@@ -47,16 +42,11 @@ private fun GameScreen(
             BottomNavigationBar(navigationHandler = navigationHandler)
         }
     ) { contentPadding ->
-        val contentModifier = Modifier
-            .fillMaxSize()
-            .verticalScroll(rememberScrollState())
-            .padding(contentPadding)
-
         when (state.status) {
             GameStatus.NotStarted -> {
                 GameNotStartedView(
                     onStart = onStart,
-                    modifier = contentModifier
+                    contentPadding = contentPadding
                 )
             }
 
@@ -65,7 +55,7 @@ private fun GameScreen(
                     values = state.values,
                     score = state.score,
                     onSwipe = onSwipe,
-                    modifier = contentModifier
+                    contentPadding = contentPadding
                 )
             }
 
@@ -75,7 +65,7 @@ private fun GameScreen(
                     score = state.score,
                     won = state.won,
                     onRestart = onRestart,
-                    modifier = contentModifier
+                    contentPadding = contentPadding
                 )
             }
         }

@@ -3,7 +3,11 @@ package christianzoeller.slidingnumbers.feature.game.ui
 import android.util.Log
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -27,12 +31,15 @@ fun GameRunningView(
     values: List<Int>,
     score: Int,
     onSwipe: (SwipeDirection) -> Unit,
-    modifier: Modifier = Modifier
+    contentPadding: PaddingValues
 ) {
     var dragOffset: Offset? by remember { mutableStateOf(null) }
 
     Column(
-        modifier = modifier,
+        modifier = Modifier
+            .verticalScroll(rememberScrollState())
+            .padding(contentPadding)
+            .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         GameBoard(
@@ -102,6 +109,7 @@ private fun GameRunningView_Preview() = SlidingNumbersTheme {
             128, 64, 32, 16
         ),
         score = 512,
-        onSwipe = {}
+        onSwipe = {},
+        contentPadding = PaddingValues()
     )
 }
