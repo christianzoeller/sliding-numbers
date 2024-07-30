@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import christianzoeller.slidingnumbers.model.GameResult
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface GameResultDao {
@@ -14,5 +15,5 @@ interface GameResultDao {
     suspend fun getById(id: Long): GameResult
 
     @Query("SELECT * FROM results")
-    suspend fun getAll(): List<GameResult>
+    fun getAll(): Flow<List<GameResult>>
 }

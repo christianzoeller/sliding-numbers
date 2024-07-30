@@ -17,15 +17,12 @@ class ResultsOverviewViewModel @Inject constructor(
     val state = _state.asStateFlow()
 
     init {
-        loadAll()
-    }
-
-    private fun loadAll() {
         viewModelScope.launch {
-            val results = gameResultRepository.getAllResults()
-            _state.value = when {
-                results.isEmpty() -> ResultsOverviewState.Empty
-                else -> ResultsOverviewState.Data(results)
+            gameResultRepository.getAllResults().collect { results ->
+                _state.value = when {
+                    results.isEmpty() -> ResultsOverviewState.Empty
+                    else -> ResultsOverviewState.Data(results)
+                }
             }
         }
     }

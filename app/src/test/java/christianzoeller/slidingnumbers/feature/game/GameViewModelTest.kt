@@ -4,6 +4,8 @@ import christianzoeller.slidingnumbers.datasource.GameResultDao
 import christianzoeller.slidingnumbers.feature.game.model.SwipeDirection
 import christianzoeller.slidingnumbers.model.GameResult
 import christianzoeller.slidingnumbers.repository.GameResultRepository
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.runTest
 import kotlinx.datetime.Clock
@@ -99,6 +101,8 @@ private object FakeGameResultDao : GameResultDao {
         finalValues = List(16) { 0 }
     )
 
-    override suspend fun getAll(): List<GameResult> = emptyList()
+    override fun getAll(): Flow<List<GameResult>> = flow {
+        emptyList<GameResult>()
+    }
 }
 // endregion
