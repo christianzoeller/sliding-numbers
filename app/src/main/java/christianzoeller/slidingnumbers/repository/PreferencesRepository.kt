@@ -32,7 +32,6 @@ class PreferencesRepository @Inject constructor(
         context.dataStore.edit { preferences ->
             preferences[uiMode] = newMode
         }
-
     }
 }
 

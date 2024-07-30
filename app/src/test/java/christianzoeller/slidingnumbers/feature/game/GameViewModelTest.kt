@@ -4,14 +4,16 @@ import christianzoeller.slidingnumbers.datasource.GameResultDao
 import christianzoeller.slidingnumbers.feature.game.model.SwipeDirection
 import christianzoeller.slidingnumbers.model.GameResult
 import christianzoeller.slidingnumbers.repository.GameResultRepository
+import kotlinx.coroutines.test.TestScope
+import kotlinx.coroutines.test.runTest
 import kotlinx.datetime.Clock
 import org.junit.Assert
 import org.junit.Test
 
 class GameViewModelTest {
     @Test
-    fun `initialized view model has correct state`() {
-        val viewModel = GameViewModel(GameResultRepository(FakeGameResultDao))
+    fun `initialized view model has correct state`() = runTest {
+        val viewModel = makeGameViewModel()
 
         val state = viewModel.state.value
         Assert.assertEquals(GameStatus.NotStarted, state.status)
@@ -26,8 +28,8 @@ class GameViewModelTest {
     }
 
     @Test
-    fun `starting the game works as expected`() {
-        val viewModel = GameViewModel(GameResultRepository(FakeGameResultDao))
+    fun `starting the game works as expected`() = runTest {
+        val viewModel = makeGameViewModel()
 
         viewModel.onStart()
 
@@ -42,8 +44,8 @@ class GameViewModelTest {
     }
 
     @Test
-    fun `swiping has no effect if the game has not been started`() {
-        val viewModel = GameViewModel(GameResultRepository(FakeGameResultDao))
+    fun `swiping has no effect if the game has not been started`() = runTest {
+        val viewModel = makeGameViewModel()
 
         SwipeDirection.entries.forEach { direction ->
             viewModel.onSwipe(direction)
@@ -62,8 +64,8 @@ class GameViewModelTest {
     }
 
     @Test
-    fun `restart has no effect if the game has not been started`() {
-        val viewModel = GameViewModel(GameResultRepository(FakeGameResultDao))
+    fun `restart has no effect if the game has not been started`() = runTest {
+        val viewModel = makeGameViewModel()
 
         viewModel.onRestart()
 
@@ -81,6 +83,13 @@ class GameViewModelTest {
 }
 
 // region Mocks
+private fun TestScope.makeGameViewModel() = GameViewModel(
+    gameResultRepository = GameResultRepository(
+        externalScope = this,
+        gameResultDao = FakeGameResultDao
+    )
+)
+
 private object FakeGameResultDao : GameResultDao {
     override suspend fun insert(result: GameResult) {}
     override suspend fun getById(id: Long) = GameResult(
@@ -91,6 +100,5 @@ private object FakeGameResultDao : GameResultDao {
     )
 
     override suspend fun getAll(): List<GameResult> = emptyList()
-
 }
 // endregion

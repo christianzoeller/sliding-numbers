@@ -14,6 +14,7 @@ composeBom = "2024.06.00"
 hilt = "2.49"
 hiltNavigationCompose = "1.2.0"
 konsist = "0.15.1"
+kotlinxCoroutines = "1.8.1"
 kotlinxDatetime = "0.6.0"
 kotlinxSerialization = "1.7.1"
 ksp = "2.0.0-1.0.22"
@@ -43,6 +44,7 @@ hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref
 hilt-android-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
 hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
 konsist = { group = "com.lemonappdev", name = "konsist", version.ref = "konsist" }
+kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlinxCoroutines" }
 kotlinx-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlinxDatetime" }
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
