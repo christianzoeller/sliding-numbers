@@ -13,7 +13,7 @@ before_script:
   - bundle check --path vendor/bundle || bundle install --path vendor/bundle --jobs $(nproc)
 
 test:
-  image: fabernovel/android:api-33-v1.7.0
+  image: fabernovel/android:api-34-v1.8.0
   stage: test
   rules:
     - if: $CI_COMMIT_REF_PROTECTED == 'true' || $CI_PIPELINE_SOURCE == 'merge_request_event'
@@ -29,7 +29,7 @@ test:
           - '*/build/test-results/testDebugUnitTest/TEST-*.xml'
 
 build:
-  image: fabernovel/android:api-33-v1.7.0
+  image: fabernovel/android:api-34-v1.8.0
   stage: build
   rules:
     - if: $CI_COMMIT_REF_PROTECTED == 'true' || $CI_PIPELINE_SOURCE == 'merge_request_event'
