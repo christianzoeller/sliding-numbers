@@ -1,25 +1,18 @@
 package christianzoeller.slidingnumbers.project
 
 import androidx.lifecycle.ViewModel
+import christianzoeller.slidingnumbers.project.extensions.topLevelScreenComposables
 import com.lemonappdev.konsist.api.Konsist
 import com.lemonappdev.konsist.api.ext.list.withAllParentsOf
-import com.lemonappdev.konsist.api.ext.list.withAnnotation
 import com.lemonappdev.konsist.api.ext.list.withPackage
-import com.lemonappdev.konsist.api.ext.list.withParameter
 import com.lemonappdev.konsist.api.verify.assertTrue
 import org.junit.Test
 
 class NamingTest {
     @Test
     fun `top-level screen composables have correct suffix`() {
-        // Here, we define top-level screen composables as those
-        // composables that have a view model parameter
         Konsist.scopeFromProject()
-            .functions()
-            .withAnnotation { annotation -> annotation.name == "Composable" }
-            .withParameter { parameter ->
-                parameter.hasType { type -> type.hasNameEndingWith(viewModelSuffix) }
-            }
+            .topLevelScreenComposables()
             .assertTrue { it.name.endsWith(topLevelScreenComposableSuffix) }
     }
 
