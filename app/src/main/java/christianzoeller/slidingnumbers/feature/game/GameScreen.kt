@@ -1,5 +1,6 @@
 package christianzoeller.slidingnumbers.feature.game
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -7,41 +8,37 @@ import christianzoeller.slidingnumbers.feature.game.model.SwipeDirection
 import christianzoeller.slidingnumbers.feature.game.ui.GameFinishedView
 import christianzoeller.slidingnumbers.feature.game.ui.GameNotStartedView
 import christianzoeller.slidingnumbers.feature.game.ui.GameRunningView
-import christianzoeller.slidingnumbers.navigation.NavigationHandler
-import christianzoeller.slidingnumbers.navigation.NoOpNavigationHandler
-import christianzoeller.slidingnumbers.ui.components.BottomNavigationBar
+import christianzoeller.slidingnumbers.ui.extensions.plus
+import christianzoeller.slidingnumbers.ui.extensions.withoutBottomPadding
 import christianzoeller.slidingnumbers.ui.theme.SlidingNumbersTheme
 import christianzoeller.slidingnumbers.ui.tooling.CompactPreview
 
 @Composable
 fun GameScreen(
-    navigationHandler: NavigationHandler,
-    viewModel: GameViewModel
+    viewModel: GameViewModel,
+    bottomBarContentPadding: PaddingValues
 ) {
     val state = viewModel.state.collectAsStateWithLifecycle()
 
     GameScreen(
-        navigationHandler = navigationHandler,
         state = state.value,
         onStart = viewModel::onStart,
         onSwipe = viewModel::onSwipe,
-        onRestart = viewModel::onRestart
+        onRestart = viewModel::onRestart,
+        bottomBarContentPadding = bottomBarContentPadding
     )
 }
 
 @Composable
 private fun GameScreen(
-    navigationHandler: NavigationHandler,
     state: GameState,
     onStart: () -> Unit,
     onSwipe: (SwipeDirection) -> Unit,
-    onRestart: () -> Unit
+    onRestart: () -> Unit,
+    bottomBarContentPadding: PaddingValues
 ) {
-    Scaffold(
-        bottomBar = {
-            BottomNavigationBar(navigationHandler = navigationHandler)
-        }
-    ) { contentPadding ->
+    Scaffold { innerContentPadding ->
+        val contentPadding = innerContentPadding.withoutBottomPadding() + bottomBarContentPadding
         when (state.status) {
             GameStatus.NotStarted -> {
                 GameNotStartedView(
@@ -76,11 +73,11 @@ private fun GameScreen(
 @Composable
 fun GameScreen_NotStarted_Preview() = SlidingNumbersTheme {
     GameScreen(
-        navigationHandler = NoOpNavigationHandler,
         state = GameState(status = GameStatus.NotStarted),
         onStart = {},
         onSwipe = {},
-        onRestart = {}
+        onRestart = {},
+        bottomBarContentPadding = PaddingValues()
     )
 }
 
@@ -88,11 +85,11 @@ fun GameScreen_NotStarted_Preview() = SlidingNumbersTheme {
 @Composable
 fun GameScreen_Running_Preview() = SlidingNumbersTheme {
     GameScreen(
-        navigationHandler = NoOpNavigationHandler,
         state = GameState(status = GameStatus.Running),
         onStart = {},
         onSwipe = {},
-        onRestart = {}
+        onRestart = {},
+        bottomBarContentPadding = PaddingValues()
     )
 }
 
@@ -100,10 +97,10 @@ fun GameScreen_Running_Preview() = SlidingNumbersTheme {
 @Composable
 fun GameScreen_Finished_Preview() = SlidingNumbersTheme {
     GameScreen(
-        navigationHandler = NoOpNavigationHandler,
         state = GameState(status = GameStatus.Finished),
         onStart = {},
         onSwipe = {},
-        onRestart = {}
+        onRestart = {},
+        bottomBarContentPadding = PaddingValues()
     )
 }

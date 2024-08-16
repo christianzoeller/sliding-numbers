@@ -1,5 +1,6 @@
 package christianzoeller.slidingnumbers.feature.preferences.subscreens.osslicensedetail
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -14,34 +15,35 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import christianzoeller.slidingnumbers.R
 import christianzoeller.slidingnumbers.feature.preferences.subscreens.osslicensedetail.ui.OssLicenseDetailView
-import christianzoeller.slidingnumbers.navigation.NavigationAction
-import christianzoeller.slidingnumbers.navigation.NavigationHandler
-import christianzoeller.slidingnumbers.navigation.NoOpNavigationHandler
-import christianzoeller.slidingnumbers.ui.components.BottomNavigationBar
 import christianzoeller.slidingnumbers.ui.components.DefaultErrorView
 import christianzoeller.slidingnumbers.ui.components.DefaultLoadingView
+import christianzoeller.slidingnumbers.ui.extensions.plus
+import christianzoeller.slidingnumbers.ui.extensions.withoutBottomPadding
 import christianzoeller.slidingnumbers.ui.previewmocks.OssLicenseInfoMocks
 import christianzoeller.slidingnumbers.ui.theme.SlidingNumbersTheme
 import christianzoeller.slidingnumbers.ui.tooling.CompactPreview
 
 @Composable
 fun OssLicenseDetailScreen(
-    navigationHandler: NavigationHandler,
-    viewModel: OssLicenseDetailViewModel
+    viewModel: OssLicenseDetailViewModel,
+    onNavigateUp: () -> Unit,
+    bottomBarContentPadding: PaddingValues
 ) {
     val state = viewModel.state.collectAsStateWithLifecycle()
 
     OssLicenseDetailScreen(
-        navigationHandler = navigationHandler,
-        state = state.value
+        state = state.value,
+        onNavigateUp = onNavigateUp,
+        bottomBarContentPadding = bottomBarContentPadding
     )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun OssLicenseDetailScreen(
-    navigationHandler: NavigationHandler,
-    state: OssLicenseDetailState
+    state: OssLicenseDetailState,
+    onNavigateUp: () -> Unit,
+    bottomBarContentPadding: PaddingValues
 ) {
     Scaffold(
         topBar = {
@@ -57,7 +59,7 @@ private fun OssLicenseDetailScreen(
                     )
                 },
                 navigationIcon = {
-                    IconButton(onClick = { navigationHandler.navigate(NavigationAction.Up) }) {
+                    IconButton(onClick = onNavigateUp) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = stringResource(id = R.string.global_navigate_up_icon_description)
@@ -65,11 +67,9 @@ private fun OssLicenseDetailScreen(
                     }
                 }
             )
-        },
-        bottomBar = {
-            BottomNavigationBar(navigationHandler = navigationHandler)
         }
-    ) { contentPadding ->
+    ) { innerContentPadding ->
+        val contentPadding = innerContentPadding.withoutBottomPadding() + bottomBarContentPadding
         when (state) {
             is OssLicenseDetailState.Data -> OssLicenseDetailView(
                 data = state,
@@ -87,8 +87,9 @@ private fun OssLicenseDetailScreen(
 @Composable
 private fun OssLicenseDetailScreen_Loading_Preview() = SlidingNumbersTheme {
     OssLicenseDetailScreen(
-        navigationHandler = NoOpNavigationHandler,
-        state = OssLicenseDetailState.Loading("kotlinx.datetime")
+        state = OssLicenseDetailState.Loading("kotlinx.datetime"),
+        onNavigateUp = {},
+        bottomBarContentPadding = PaddingValues()
     )
 }
 
@@ -96,12 +97,13 @@ private fun OssLicenseDetailScreen_Loading_Preview() = SlidingNumbersTheme {
 @Composable
 private fun OssLicenseDetailScreen_Content_Preview() = SlidingNumbersTheme {
     OssLicenseDetailScreen(
-        navigationHandler = NoOpNavigationHandler,
         state = OssLicenseDetailState.Data(
             libraryName = "kotlinx.datetime",
             library = OssLicenseInfoMocks.library,
             licenses = listOf(OssLicenseInfoMocks.license)
-        )
+        ),
+        onNavigateUp = {},
+        bottomBarContentPadding = PaddingValues()
     )
 }
 
@@ -109,7 +111,8 @@ private fun OssLicenseDetailScreen_Content_Preview() = SlidingNumbersTheme {
 @Composable
 private fun OssLicenseDetailScreen_Error_Preview() = SlidingNumbersTheme {
     OssLicenseDetailScreen(
-        navigationHandler = NoOpNavigationHandler,
-        state = OssLicenseDetailState.Error("kotlinx.datetime")
+        state = OssLicenseDetailState.Error("kotlinx.datetime"),
+        onNavigateUp = {},
+        bottomBarContentPadding = PaddingValues()
     )
 }

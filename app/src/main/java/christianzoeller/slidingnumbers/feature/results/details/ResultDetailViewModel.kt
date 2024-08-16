@@ -5,7 +5,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
-import christianzoeller.slidingnumbers.navigation.NavigationDestination
+import christianzoeller.slidingnumbers.navigation.Destination
 import christianzoeller.slidingnumbers.repository.GameResultRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -22,7 +22,7 @@ class ResultDetailViewModel @Inject constructor(
     val state = _state.asStateFlow()
 
     private val gameResultId = savedStateHandle
-        .toRoute<NavigationDestination.ResultDetail>()
+        .toRoute<Destination.ResultDetail>()
         .resultId
 
     init {

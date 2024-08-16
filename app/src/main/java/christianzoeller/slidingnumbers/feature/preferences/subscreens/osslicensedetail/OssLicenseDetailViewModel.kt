@@ -3,7 +3,7 @@ package christianzoeller.slidingnumbers.feature.preferences.subscreens.osslicens
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.navigation.toRoute
-import christianzoeller.slidingnumbers.navigation.NavigationDestination
+import christianzoeller.slidingnumbers.navigation.Destination
 import christianzoeller.slidingnumbers.repository.OssLicensesRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -16,7 +16,7 @@ class OssLicenseDetailViewModel @Inject constructor(
     private val ossLicensesRepository: OssLicensesRepository
 ) : ViewModel() {
     private val navArgs = savedStateHandle
-        .toRoute<NavigationDestination.OssLicenseDetail>()
+        .toRoute<Destination.OssLicenseDetail>()
 
     private val _state = MutableStateFlow<OssLicenseDetailState>(
         OssLicenseDetailState.Loading(navArgs.libraryName)

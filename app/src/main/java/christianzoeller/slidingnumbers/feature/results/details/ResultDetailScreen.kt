@@ -1,5 +1,6 @@
 package christianzoeller.slidingnumbers.feature.results.details
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -11,39 +12,40 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import christianzoeller.slidingnumbers.navigation.NavigationDestination
 import christianzoeller.slidingnumbers.R
 import christianzoeller.slidingnumbers.feature.results.details.ui.ResultDetailView
-import christianzoeller.slidingnumbers.navigation.NavigationAction
-import christianzoeller.slidingnumbers.navigation.NavigationHandler
-import christianzoeller.slidingnumbers.navigation.NoOpNavigationHandler
-import christianzoeller.slidingnumbers.ui.components.BottomNavigationBar
 import christianzoeller.slidingnumbers.ui.components.DefaultErrorView
 import christianzoeller.slidingnumbers.ui.components.DefaultLoadingView
+import christianzoeller.slidingnumbers.ui.extensions.plus
+import christianzoeller.slidingnumbers.ui.extensions.withoutBottomPadding
 import christianzoeller.slidingnumbers.ui.previewmocks.GameResultMocks
 import christianzoeller.slidingnumbers.ui.theme.SlidingNumbersTheme
 import christianzoeller.slidingnumbers.ui.tooling.CompactPreview
 
 @Composable
 fun ResultDetailScreen(
-    navigationHandler: NavigationHandler,
-    viewModel: ResultDetailViewModel
+    viewModel: ResultDetailViewModel,
+    onStartGameClick: () -> Unit,
+    onNavigateUp: () -> Unit,
+    bottomBarContentPadding: PaddingValues
 ) {
     val state = viewModel.state.collectAsStateWithLifecycle()
 
     ResultDetailScreen(
-        navigationHandler = navigationHandler,
         state = state.value,
-        onStartGameClick = { navigationHandler.navigate(NavigationDestination.Game) }
+        onStartGameClick = onStartGameClick,
+        onNavigateUp = onNavigateUp,
+        bottomBarContentPadding = bottomBarContentPadding
     )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun ResultDetailScreen(
-    navigationHandler: NavigationHandler,
     state: ResultDetailState,
-    onStartGameClick: () -> Unit
+    onStartGameClick: () -> Unit,
+    onNavigateUp: () -> Unit,
+    bottomBarContentPadding: PaddingValues
 ) {
     Scaffold(
         topBar = {
@@ -52,7 +54,7 @@ private fun ResultDetailScreen(
                     Text(text = stringResource(id = R.string.result_detail_header))
                 },
                 navigationIcon = {
-                    IconButton(onClick = { navigationHandler.navigate(NavigationAction.Up) }) {
+                    IconButton(onClick = onNavigateUp) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = stringResource(id = R.string.global_navigate_up_icon_description)
@@ -60,11 +62,9 @@ private fun ResultDetailScreen(
                     }
                 }
             )
-        },
-        bottomBar = {
-            BottomNavigationBar(navigationHandler = navigationHandler)
         }
-    ) { contentPadding ->
+    ) { innerContentPadding ->
+        val contentPadding = innerContentPadding.withoutBottomPadding() + bottomBarContentPadding
         when (state) {
             is ResultDetailState.Data -> ResultDetailView(
                 data = state,
@@ -83,9 +83,10 @@ private fun ResultDetailScreen(
 @Composable
 private fun ResultDetailScreen_Loading_Preview() = SlidingNumbersTheme {
     ResultDetailScreen(
-        navigationHandler = NoOpNavigationHandler,
         state = ResultDetailState.Loading,
-        onStartGameClick = {}
+        onStartGameClick = {},
+        onNavigateUp = {},
+        bottomBarContentPadding = PaddingValues()
     )
 }
 
@@ -93,9 +94,10 @@ private fun ResultDetailScreen_Loading_Preview() = SlidingNumbersTheme {
 @Composable
 private fun ResultDetailScreen_Content_Preview() = SlidingNumbersTheme {
     ResultDetailScreen(
-        navigationHandler = NoOpNavigationHandler,
         state = ResultDetailState.Data(result = GameResultMocks.first),
-        onStartGameClick = {}
+        onStartGameClick = {},
+        onNavigateUp = {},
+        bottomBarContentPadding = PaddingValues()
     )
 }
 
@@ -103,8 +105,9 @@ private fun ResultDetailScreen_Content_Preview() = SlidingNumbersTheme {
 @Composable
 private fun ResultDetailScreen_Error_Preview() = SlidingNumbersTheme {
     ResultDetailScreen(
-        navigationHandler = NoOpNavigationHandler,
         state = ResultDetailState.Error,
-        onStartGameClick = {}
+        onStartGameClick = {},
+        onNavigateUp = {},
+        bottomBarContentPadding = PaddingValues()
     )
 }

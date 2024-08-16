@@ -14,7 +14,6 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import christianzoeller.slidingnumbers.navigation.NavigationGraph
 import christianzoeller.slidingnumbers.repository.PreferencesRepository
 import christianzoeller.slidingnumbers.ui.theme.SlidingNumbersTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -49,10 +48,12 @@ class MainActivity : ComponentActivity() {
             )
         )
         setContent {
+            val appState = rememberSlidingNumbersAppState()
+
             SlidingNumbersTheme(
                 darkTheme = darkTheme ?: isSystemInDarkTheme()
             ) {
-                NavigationGraph()
+                SlidingNumbersApp(appState = appState)
             }
         }
     }
