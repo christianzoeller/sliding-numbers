@@ -23,6 +23,8 @@ test:
   variables:
     SECURE_FILES_DOWNLOAD_PATH: './'
   script:
+    - apt update -y && apt install -y curl
+    - curl -s https://gitlab.com/gitlab-org/incubation-engineering/mobile-devops/download-secure-files/-/raw/main/installer | bash
     - bundle exec fastlane test
   artifacts:
     when: always
