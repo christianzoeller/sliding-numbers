@@ -20,6 +20,8 @@ test:
       when: on_success
     - when: manual
       allow_failure: true
+  variables:
+    SECURE_FILES_DOWNLOAD_PATH: './'
   script:
     - bundle exec fastlane test
   artifacts:
