@@ -8,6 +8,20 @@ DataStore.
 The implementation of the actual game mechanics follows the Java implementation on
 [Rosetta Code](https://rosettacode.org/wiki/2048#Java).
 
+## Building
+
+This project is configured to automatically create signed release builds. The files containing
+the secrets necessary for signing the builds are added to the repository as
+[secure files](https://docs.gitlab.com/ee/ci/secure_files/). Therefore, simply checking out the
+repository and attempting to build it will result in a failed Gradle sync.
+
+Essentially, there are three options to remedy this:
+1. Remove the [parts relevant to signing builds](https://developer.android.com/studio/publish/app-signing#secure-shared-keystore)
+from the *build.gradle.kts* file of the ```app``` module and only work with debug builds.
+2. Create your own keystore and *keystore.properties* file.
+3. Contact me to request Developer role for this repository, allowing you to download secure
+files.
+
 ## Open Source Libraries
 
 This project makes use of [AboutLibraries](https://github.com/mikepenz/AboutLibraries) to display a
